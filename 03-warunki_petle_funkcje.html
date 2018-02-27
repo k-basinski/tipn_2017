@@ -538,6 +538,21 @@ document.getElementsByTagName('head')[0].appendChild(style);
   <span class="kw">print</span>(<span class="st">&quot;Ala jest pełnoletnia&quot;</span>)
 }</code></pre></div>
 <pre><code>## [1] &quot;Ala ma osiemnaście lat&quot;</code></pre>
+</section><section id="testy-logiczne-w-if" class="slide level2">
+<h2>Testy logiczne w <code>if</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(<span class="ot">TRUE</span>) {
+  <span class="co"># czy ten kod zostanie wykonany?</span>
+}</code></pre></div>
+</section><section id="testy-logiczne-w-if-1" class="slide level2">
+<h2>Testy logiczne w <code>if</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(false) {
+  <span class="co"># czy ten kod zostanie wykonany?</span>
+}</code></pre></div>
+</section><section id="testy-logiczne-w-if-2" class="slide level2">
+<h2>Testy logiczne w <code>if</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(<span class="op">!</span>(F <span class="op">|</span><span class="st"> </span>T) <span class="op">==</span><span class="st"> </span>(<span class="op">!</span>F <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>T)) {
+  <span class="co"># czy ten kod zostanie wykonany?</span>
+}</code></pre></div>
 </section></section>
 <section><section id="petle" class="titleslide slide level1"><h1>Pętle</h1></section><section id="petle-1" class="slide level2">
 <h2>Pętle</h2>
@@ -558,7 +573,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section><section id="for-1" class="slide level2">
 <h2>For</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Policz do dziesięciu</span>
-<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
   <span class="kw">print</span>(i)
 }</code></pre></div>
 <pre><code>## [1] 1
@@ -571,16 +586,156 @@ document.getElementsByTagName('head')[0].appendChild(style);
 ## [1] 8
 ## [1] 9
 ## [1] 10</code></pre>
-</section><section id="przykad---lata-przestepne" class="slide level2">
-<h2>Przykład - lata przestępne</h2>
+</section><section id="funkcja-seq" class="slide level2">
+<h2>Funkcja <code>seq</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">2</span>)
+a</code></pre></div>
+<pre><code>##  [1]  0  2  4  6  8 10 12 14 16 18 20</code></pre>
+</section><section id="for-2" class="slide level2">
+<h2>For</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">3</span>)
+<span class="cf">for</span>(i <span class="cf">in</span> a) {
+  <span class="kw">print</span>(i <span class="op">*</span><span class="st"> </span>(i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))
+}</code></pre></div>
+</section><section id="for-3" class="slide level2">
+<h2>For</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">3</span>)
+<span class="cf">for</span>(i <span class="cf">in</span> a) {
+  <span class="kw">print</span>(i <span class="op">*</span><span class="st"> </span>(i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))
+}</code></pre></div>
+<pre><code>## [1] 0
+## [1] 12
+## [1] 42
+## [1] 90
+## [1] 156
+## [1] 240
+## [1] 342
+## [1] 462
+## [1] 600
+## [1] 756
+## [1] 930</code></pre>
+</section><section id="zagniezdzony-for" class="slide level2">
+<h2>Zagnieżdżony <code>for</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {
+  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">10</span><span class="op">:</span><span class="dv">13</span>)  {
+    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;i = &quot;</span>, i, <span class="st">&quot;; j = &quot;</span>, j))
+  }
+}</code></pre></div>
+<pre><code>## [1] &quot;i =  1 ; j =  10&quot;
+## [1] &quot;i =  1 ; j =  11&quot;
+## [1] &quot;i =  1 ; j =  12&quot;
+## [1] &quot;i =  1 ; j =  13&quot;
+## [1] &quot;i =  2 ; j =  10&quot;
+## [1] &quot;i =  2 ; j =  11&quot;
+## [1] &quot;i =  2 ; j =  12&quot;
+## [1] &quot;i =  2 ; j =  13&quot;
+## [1] &quot;i =  3 ; j =  10&quot;
+## [1] &quot;i =  3 ; j =  11&quot;
+## [1] &quot;i =  3 ; j =  12&quot;
+## [1] &quot;i =  3 ; j =  13&quot;</code></pre>
+</section><section id="petla-while" class="slide level2">
+<h2>Pętla <code>while</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">while</span>(warunek) {
+  <span class="co"># to będzie się kręcić aż warunek stanie się fałszywy</span>
+}</code></pre></div>
+</section><section id="petla-while-1" class="slide level2">
+<h2>Pętla <code>while</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="dv">0</span>
+<span class="cf">while</span>(i <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>){
+  <span class="kw">print</span>(i)
+  i &lt;-<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+}</code></pre></div>
+<pre><code>## [1] 0
+## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4</code></pre>
+</section><section id="petla-while-i-readline" class="slide level2">
+<h2>Pętla <code>while</code> i <code>readline()</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">input &lt;-<span class="st"> </span><span class="kw">readline</span>(<span class="dt">prompt =</span> <span class="st">&quot;Jesteś gupi!...&quot;</span>)
+<span class="cf">while</span>(input <span class="op">!=</span><span class="st"> &quot;sam jesteś gupi!&quot;</span>) {
+  input &lt;-<span class="st"> </span><span class="kw">readline</span>(<span class="dt">prompt =</span> <span class="st">&quot;Jesteś gupi!... &quot;</span>)
+}</code></pre></div>
+</section></section>
+<section><section id="wiecej-na-temat-funkcji" class="titleslide slide level1"><h1>Więcej na temat funkcji</h1></section><section id="twoja-wasna-funkcja" class="slide level2">
+<h2>Twoja własna funkcja</h2>
 <ul>
-<li class="fragment">Latami przestępnymi są te, których numeracja:
-<ul>
-<li class="fragment">jest podzielna przez 4 i niepodzielna przez 100, lub</li>
-<li class="fragment">jest podzielna przez 400.</li>
-</ul></li>
-<li class="fragment">Problem: pokaż wszystkie lata przestępne od 1800 roku do teraz</li>
+<li class="fragment">Możesz sam pisać <strong>własne funkcje</strong>!</li>
+<li class="fragment">Funkcje służą do wykonywania jasno zdefiniowanych, powtarzalnych czynności</li>
+<li class="fragment">Jeżeli pisząc kod kilka razy piszesz to samo (albo prawie to samo), czas napisać funkcję</li>
 </ul>
+</section><section id="funkcja---przepis" class="slide level2">
+<h2>Funkcja - przepis</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nazwa_funkcji &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2, <span class="dt">arg3 =</span> <span class="st">&quot;wartość domyślna&quot;</span>) {
+  <span class="co"># &quot;ciało&quot; funkcji</span>
+}</code></pre></div>
+</section><section id="prosta-matma" class="slide level2">
+<h2>Prosta matma</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">silnia &lt;-<span class="st"> </span><span class="cf">function</span>(n) {
+  x &lt;-<span class="st"> </span><span class="dv">1</span>
+  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
+    x &lt;-<span class="st"> </span>x <span class="op">*</span><span class="st"> </span>i
+  }
+  <span class="kw">return</span>(x) <span class="co"># jaką wartość powinna zwrócić funkcja?</span>
+}
+<span class="kw">print</span>(<span class="kw">silnia</span>(<span class="dv">5</span>))</code></pre></div>
+<pre><code>## [1] 120</code></pre>
+</section><section id="podawanie-argumentow-przez-kolejnosc" class="slide level2">
+<h2>Podawanie argumentów przez kolejność</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ladny_wydruk &lt;-<span class="st"> </span><span class="cf">function</span>(imie, nazwisko, <span class="dt">plec =</span> <span class="st">&quot;nie wiadomo&quot;</span>, wiek) {
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Imię:&quot;</span>, imie))
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Nazwisko:&quot;</span>, nazwisko))
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Płeć:&quot;</span>, plec))
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Lat:&quot;</span>, wiek))
+}
+<span class="kw">ladny_wydruk</span>(<span class="st">&quot;Stefan&quot;</span>, <span class="st">&quot;Mąka&quot;</span>, <span class="st">&quot;Mężczyzna&quot;</span>, <span class="dv">44</span>)</code></pre></div>
+<pre><code>## [1] &quot;Imię: Stefan&quot;
+## [1] &quot;Nazwisko: Mąka&quot;
+## [1] &quot;Płeć: Mężczyzna&quot;
+## [1] &quot;Lat: 44&quot;</code></pre>
+</section><section id="podawanie-argumentow-przez-nazwe" class="slide level2">
+<h2>Podawanie argumentów przez nazwę</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ladny_wydruk &lt;-<span class="st"> </span><span class="cf">function</span>(imie, nazwisko, <span class="dt">plec =</span> <span class="st">&quot;nie wiadomo&quot;</span>, wiek) {
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Imię:&quot;</span>, imie))
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Nazwisko:&quot;</span>, nazwisko))
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Płeć:&quot;</span>, plec))
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Lat:&quot;</span>, wiek))
+}
+<span class="kw">ladny_wydruk</span>(<span class="dt">nazwisko =</span> <span class="st">&quot;Sałata&quot;</span>, <span class="dt">imie =</span> <span class="st">&quot;Alojzy&quot;</span>, <span class="dt">wiek =</span> <span class="dv">60</span>)</code></pre></div>
+<pre><code>## [1] &quot;Imię: Alojzy&quot;
+## [1] &quot;Nazwisko: Sałata&quot;
+## [1] &quot;Płeć: nie wiadomo&quot;
+## [1] &quot;Lat: 60&quot;</code></pre>
+</section><section id="mozna-tez-pokombinowac-tak" class="slide level2">
+<h2>Można też pokombinować tak</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ladny_wydruk &lt;-<span class="st"> </span><span class="cf">function</span>(imie, nazwisko, <span class="dt">plec =</span> <span class="st">&quot;nie wiadomo&quot;</span>, wiek) {
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Imię:&quot;</span>, imie))
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Nazwisko:&quot;</span>, nazwisko))
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Płeć:&quot;</span>, plec))
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Lat:&quot;</span>, wiek))
+}
+<span class="kw">ladny_wydruk</span>(<span class="st">&quot;Genowefa&quot;</span>, <span class="st">&quot;Stopa&quot;</span>, <span class="dt">wiek =</span> <span class="dv">55</span>, <span class="dt">plec =</span> <span class="st">&quot;kobieta&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Imię: Genowefa&quot;
+## [1] &quot;Nazwisko: Stopa&quot;
+## [1] &quot;Płeć: kobieta&quot;
+## [1] &quot;Lat: 55&quot;</code></pre>
+</section><section id="funkcje-rekurencyjne" class="slide level2">
+<h2>Funkcje rekurencyjne</h2>
+<p><strong>Rekurencja</strong>, zwana także <strong>rekursją</strong> (ang. <em>recursion</em>, z łac. <em>recurrere</em>, przybiec z powrotem) – odwoływanie się np. funkcji lub definicji do samej siebie (Wikipedia).</p>
+</section><section id="teraz-ty" class="slide level2">
+<h2>Teraz ty</h2>
+<p>Spróbuj wymyślić funkcję rekurencyjną, obliczającą silnię.</p>
+</section><section id="funkcja-rekurencyjna" class="slide level2">
+<h2>Funkcja rekurencyjna</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">silnia &lt;-<span class="st"> </span><span class="cf">function</span>(n) {
+  <span class="cf">if</span>(n <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+    <span class="kw">return</span>(<span class="dv">1</span>)
+  } <span class="cf">else</span> {
+    <span class="kw">return</span>(n <span class="op">*</span><span class="st"> </span><span class="kw">silnia</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))
+  }
+}
+<span class="kw">silnia</span>(<span class="dv">5</span>)</code></pre></div>
+<pre><code>## [1] 120</code></pre>
 </section></section>
     </div>
   </div>

@@ -68,6 +68,27 @@ if(wiek_ali < 18) {
 }
 ```
 
+## Testy logiczne w `if`
+```r
+if(TRUE) {
+  # czy ten kod zostanie wykonany?
+}
+```
+
+## Testy logiczne w `if`
+```r
+if(false) {
+  # czy ten kod zostanie wykonany?
+}
+```
+
+## Testy logiczne w `if`
+```r
+if(!(F | T) == (!F & !T)) {
+  # czy ten kod zostanie wykonany?
+}
+```
+
 
 # Pętle
 
@@ -88,15 +109,178 @@ for(i in seq){
 ## For
 ```{r}
 # Policz do dziesięciu
-for(i in 1:10){
+for(i in 1:10) {
   print(i)
 }
 ```
 
-## Przykład - lata przestępne
-- Latami przestępnymi są te, których numeracja:
-    + jest podzielna przez 4 i niepodzielna przez 100, lub
-    + jest podzielna przez 400.
-- Problem: pokaż wszystkie lata przestępne od 1800 roku do teraz
+## Funkcja `seq`
+```{r}
+a <- seq(0, 20, 2)
+a
+```
+
+## For
+```r
+a <- seq(0, 30, 3)
+for(i in a) {
+  print(i * (i + 1))
+}
+```
+
+## For
+```{r}
+a <- seq(0, 30, 3)
+for(i in a) {
+  print(i * (i + 1))
+}
+```
+
+## Zagnieżdżony `for`
+```{r}
+for(i in 1:3) {
+  for(j in 10:13)  {
+    print(paste("i = ", i, "; j = ", j))
+  }
+}
+```
+
+## Pętla `while`
+```r
+while(warunek) {
+  # to będzie się kręcić aż warunek stanie się fałszywy
+}
+```
+
+## Pętla `while`
+```{r}
+i <- 0
+while(i < 5){
+  print(i)
+  i <- i + 1
+}
+```
 
 
+## Pętla `while` i `readline()`
+```r
+input <- readline(prompt = "Jesteś gupi!...")
+while(input != "sam jesteś gupi!") {
+  input <- readline(prompt = "Jesteś gupi!... ")
+}
+```
+
+# Więcej na temat funkcji
+
+## Twoja własna funkcja
+- Możesz sam pisać **własne funkcje**!
+- Funkcje służą do wykonywania jasno zdefiniowanych, powtarzalnych czynności
+- Jeżeli pisząc kod kilka razy piszesz to samo (albo prawie to samo), czas napisać funkcję
+
+## Funkcja - przepis
+```{r}
+nazwa_funkcji <- function(arg1, arg2, arg3 = "wartość domyślna") {
+  # "ciało" funkcji
+}
+```
+
+## Prosta matma
+```{r}
+silnia <- function(n) {
+  x <- 1
+  for(i in 1:n) {
+    x <- x * i
+  }
+  return(x) # jaką wartość powinna zwrócić funkcja?
+}
+print(silnia(5))
+```
+
+## Podawanie argumentów przez kolejność
+```{r}
+ladny_wydruk <- function(imie, nazwisko, plec = "nie wiadomo", wiek) {
+  print(paste("Imię:", imie))
+  print(paste("Nazwisko:", nazwisko))
+  print(paste("Płeć:", plec))
+  print(paste("Lat:", wiek))
+}
+ladny_wydruk("Stefan", "Mąka", "Mężczyzna", 44)
+```
+
+## Podawanie argumentów przez nazwę
+```{r}
+ladny_wydruk <- function(imie, nazwisko, plec = "nie wiadomo", wiek) {
+  print(paste("Imię:", imie))
+  print(paste("Nazwisko:", nazwisko))
+  print(paste("Płeć:", plec))
+  print(paste("Lat:", wiek))
+}
+ladny_wydruk(nazwisko = "Sałata", imie = "Alojzy", wiek = 60)
+```
+
+## Można też pokombinować tak
+```{r}
+ladny_wydruk <- function(imie, nazwisko, plec = "nie wiadomo", wiek) {
+  print(paste("Imię:", imie))
+  print(paste("Nazwisko:", nazwisko))
+  print(paste("Płeć:", plec))
+  print(paste("Lat:", wiek))
+}
+ladny_wydruk("Genowefa", "Stopa", wiek = 55, plec = "kobieta")
+```
+
+## Funkcje rekurencyjne
+**Rekurencja**, zwana także **rekursją** (ang. *recursion*, z łac. *recurrere*, przybiec z powrotem) – odwoływanie się np. funkcji lub definicji do samej siebie (Wikipedia).
+
+## Teraz ty
+Spróbuj wymyślić funkcję rekurencyjną, obliczającą silnię.
+
+## Funkcja rekurencyjna
+```{r}
+silnia <- function(n) {
+  if(n == 0) {
+    return(1)
+  } else {
+    return(n * silnia(n - 1))
+  }
+}
+silnia(5)
+```
+
+## Zagadka
+```r
+# Co zwróci ten kod?
+a <- 5; b <- 10
+jakas_funkcja <- function() {
+  a <- 50; b <- 100
+  a <- a + 1
+  b <- b ^ 2
+}
+jakas_funkcja()
+print(a)
+print(b)
+```
+
+## Zasięg zmiennych
+```{r}
+a <- 5; b <- 10
+jakas_funkcja <- function() {
+  a <- 50; b <- 100
+  a <- a + 1
+  b <- b ^ 2
+}
+jakas_funkcja()
+print(a)
+print(b)
+```
+
+## Zasięg zmiennych
+- Zmienne wewnątrz funkcji istnieją w osobnym środowisku (environment) niż globalne środowisko
+- Jeśli wewnątrz funkcji jest odwołanie do zmiennej, `R` najpierw przeszuka lokalne środowisko tej funkcji. Jeśli nic nie znajdzie, popatrzy do globalnego
+- Zmiany wartości zmiennych dokonywane wewnątrz funkcji dokonują się w **lokalnym środowisku**
+
+## Przekazywanie wartości do funkcji
+- Funkcje powinny być **samowystarczalne**
+- Wszelkie zmienne z których korzysta funkcja powinny być przekazywane przez **argumenty**
+- Wynik działania funkcji powinien być zwracany poprzez `return()`
+- Sprzyja to *reusability*
