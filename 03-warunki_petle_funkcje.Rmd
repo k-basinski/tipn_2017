@@ -3,6 +3,8 @@ title: "TIPN 3 - Warunki, pętle, funkcje cd"
 author: Krzysztof Basiński
 output:
   revealjs::revealjs_presentation:
+    self_contained: false
+    lib_dir: reveal_libs
     theme: serif
     center: true
     incremental: true
