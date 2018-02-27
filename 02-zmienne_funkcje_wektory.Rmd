@@ -1,0 +1,602 @@
+---
+title: "TIPN 2 - Zmienne, funkcje, wektory"
+author: Krzysztof Basiński
+output:
+  revealjs::revealjs_presentation:
+    theme: serif
+    center: true
+    incremental: true
+---
+
+# Zmienne
+
+## Zmienna
+- Miejsce w pamięci komputera, przechowujące informację
+- Ew. nazwa, nadana jakiejś informacji
+- Informacja może być:
+      + Liczbą
+      + Tekstem
+      + Wektorem
+      + Tablicą
+      + Słit selfi focią w jpg
+      + I wieloma innymi rzeczami
+
+## Zmienna
+```{r}
+a <- 1
+```
+
+## Zmienna
+- Po przypisaniu wartości zmiennej, dana nazwa wskazuje na zadeklarowaną wartość
+- Z tej wartości można korzystać
+- Można też ją zmieniać
+- Zmienne istnieją w środowisku (*environment*)
+
+## R Studio jest super
+- Każda zmienna wraz z wartością pojawia się w oknie `Environment`
+- Ułatwia to połapanie się w dużej ilości zmiennych
+- Pozwala też na przeglądanie zbiorów danych
+- Komenda `rm(list = ls())` usuwa wszystko ze środowiska
+
+## Zmienna
+```{r}
+a <- 1
+b <- 3
+
+a + b
+```
+
+## Jakie wartości może przyjmować zmienna w `R`?
+- R posiada 5 podstawowych typów zmiennych:
+    + `numeric`
+    + `character`
+    + `logical`
+    + `complex`
+    + `integer`
+- Typ zmiennej sprawdź funkcją `class()`
+
+## Numeric
+```{r}
+# Typ `numeric` już znasz - to liczby
+a <- 45
+b <- -100
+c <- 34.2342 / 6243
+class(a)
+class(b)
+class(c)
+```
+
+## Character
+```{r}
+# Zmienne mogą też przechowywać tekst
+a <- "Ala ma"
+b <- "5"
+c <- "kotów"
+class(a)
+class(b)
+class(c)
+```
+
+## Logical
+```{r}
+# Oraz wartości logiczne TRUE i FALSE
+ala_ma_kota <- TRUE
+kot_ma_ale <- FALSE
+
+# Skrót:
+ala_ma_slonia <- T
+slon_ma_ale <- F
+
+class(ala_ma_kota)
+class(slon_ma_ale)
+```
+
+## Complex i integer
+- Tymi typami nie będziemy się dłużej zajmować
+- `complex` służy do przechowywania liczb zespolonych (kto pamięta co to?)
+- `integer` przechowuje liczby całkowite
+
+## Nazwy zmiennych
+*A syntactically valid name consists of letters, numbers and the dot or underline characters and starts with a letter or the dot not followed by a number.*
+
+`?make.names()`
+
+## Nazwy zmiennych
+```
+ala_ma_kota <- TRUE
+ala ma kota <- TRUE
+ala.ma.kota <- FALSE
+Pierwszy#Kot&Ali <- "Dżejson"
+Ali_2_kot <- "Sajmon"
+CzwartyKotAliBoPozostaleZdechły <- "Dzubdziuś"
+4KotAliBoPozostaleZdechły <- "Dzubdziuś"
+```
+
+## Nazwy zmiennych
+```
+ala_ma_kota <- TRUE # OK
+ala ma kota <- TRUE # NIE OK
+ala.ma.kota <- FALSE # OK
+Pierwszy#Kot&Ali <- "Dżejson" # NIE OK
+Ali_2_kot <- "Sajmon" # OK
+CzwartyKotAliBoPozostaleZdechły <- "Dzubdziuś" # OK ale uwaga!
+4KotAliBoPozostaleZdechły <- "Dzubdziuś" # NIE OK
+```
+
+## Ćwiczenie 1
+```r
+# Przeanalizuj poniższy kod i spróbuj zgadnąć, 
+# jaki będzie wynik operacji
+a <- 3
+b <- 10
+c <- -1
+(a * b) + 4 / c ^ 101
+```
+
+## Ćwiczenie 1
+```{r}
+# Przeanalizuj poniższy kod i spróbuj zgadnąć, 
+# jaki będzie wynik operacji
+a <- 3
+b <- 10
+c <- -1
+(a * b) + 4 / c ^ 101
+```
+
+## Ćwiczenie 2
+```r
+# Przeanalizuj poniższy kod i spróbuj zgadnąć, 
+# jaka będzie wartość zmiennej c na koniec
+a <- 1
+b <- 2
+c <- a + b
+a + 1
+b + 2
+b <- c + a
+c <- a + b + c
+```
+
+## Ćwiczenie 2
+```{r}
+a <- 1
+b <- 2
+c <- a + b
+a + 1
+b + 2
+b <- c + a
+c <- a + b + c
+c
+```
+
+
+# Parę dobrych rad
+
+## Pomoc w `R`
+- Jeśli nie wiesz, do czego służy dana funkcja, skorzystaj z pomocy
+- Np.: 
+    + ` ?class() ` 
+    + `?'+'`
+    + `??regression`
+
+## Cheatsheets
+![Cheatsheets](img/cheatsheets.png)
+
+
+## Pamiętaj o wielkich i małych literach!
+```{r}
+kot_ali <- "Kewin"
+kot_ali <- "Dżejson"
+kot_ali
+```
+
+## Pamiętaj o wielkich i małych literach!
+```{r}
+kot_ali <- "Kewin"
+Kot_ali <- "Dżejson"
+kot_ali
+```
+
+## Komentarze
+```{r}
+# Kod rozpoczynający się od hasza (#) nie będzie interpretowany
+# Komentarze są bardzo ważne dla czytelności kodu!
+koty_ali <- 4
+# Ala ma nowego kota
+koty_ali <- koty_ali + 1
+koty_ali
+```
+
+## Skrypty
+- Mając do dyspozycji tylko konsolę, praca z `R` byłaby bardzo trudna
+- Używając **skryptów**, możemy zapisać dużo komend i kazać interpreterowi `R` by wykonał jedną po drugiej
+- Skrypty zapisujemy w zwykłym pliku tekstowym, zwyczajowo z rozszerzeniem `*.R`
+
+## Skrypty
+![Przykładowy skrypt](img/przykladowy_skrypt.png)
+
+## Skrypty - run i source
+- Przycisk `Run` wykonuje bierzącą linijkę kodu albo zaznaczenie
+- Skrót: `ctrl/cmd + enter`
+- Przycisk `Source` wykonuje cały skrypt
+
+## Projekty w `R Studio`
+- Projekty pełnią bardzo ważną rolę w pracy z `R Studio`
+- Korzyści z korzystania z projektów staną się jasne (mam nadzieję) w ciągu tych zajęć
+- Projekt składa się z zawartości jednego, wybranego katalogu wraz z wszystkim podkatalogami i paroma plikami ukrytymi
+- Na projekt mogą też składać się: historia zmian, układ otwartych okien, preferencje użytkownika, dane repozytorium `git` itd.
+
+## Projekty w `R Studio`
+- Polecam! Utwórz projekt o nazwie `R_cwiczenia` albo podobnej, wszystko co robisz na tych zajęciach trzymaj w tym projekcie
+- Będziesz mieć dużo plików. Pamiętaj o sensownych nazwach! Np. `zajecia_1.R` albo `zadanie_1-3.R`
+- W projekcie mogą być nie tylko skrypty `R` ale też dowolne inne pliki
+
+## Zadanie 1-1
+1. Utwórz projekt w `R Studio`, którego będziesz używać na tych zajęciach
+2. Utwórz w nim zwykły plik tekstowy o nazwie `whoami.txt`, w którym napisz swoje imię, nazwisko, rok studiów i numer albumu (w osobnych liniach)
+3. Utwórz skrypt `zad1-1.R`, w którym stworzysz trzy zmienne typu `numeric` i zrobisz na nich parę operacji matematycznych
+
+# Funkcje - wprowadzenie
+
+## Funkcje
+- Duża część pracy z `R` polega na korzystaniu z funkcji
+- Jedną funkcję już znasz - `class()`
+- Przepis na funkcję:
+    + `nazwa(argument)`
+    + `nazwa(arg1, arg2, arg3)`
+    + `nazwa()`
+    
+## Funkcje
+- Niektóre funkcje mają argumenty o wartościach domyślnych, np. 
+    + `round(x, digits = 0)`
+- Inne funkcje przyjmują wiele podobnych argumentów, np.
+    + `paste (..., sep = " ", collapse = NULL)`
+- Do argumentów odwołujemy się przez nazwę, np.
+    + `round(x = 3.123, digits = 1)`
+    + `round(digits = 1, x = 3.123)`
+- Albo przez pozycję, np.
+    + `round(3.123, 1)`
+    
+## Parę fajnych funkcji na początek - matma
+```{r}
+abs(-123.321) # Wartość bezwzględna
+sqrt(4) # Pierwiastek kwadratowy
+round(665.712397234) # Zaokrąglenie
+```
+
+
+## Parę fajnych funkcji na początek - matma
+```{r}
+sin(pi / 2) # Sinus
+cos(1) # Cosinus
+log(1) # Logarytm naturalny
+```
+
+## Parę fajnych funkcji na początek - tekst
+```{r}
+paste("Ala", "ma", "kota") # Łączy teksty/stringi
+toupper("ala ma kota") # WIELKIE LITERY
+tolower("AlA mA kOtA") # małe litery
+```
+
+
+
+# Wektory
+
+## Wektor 
+- Wektor to sekwencja informacji o *tym samym* podstawowym typie (`numeric`, `character`, `logical` etc.)
+- Do tworzenia wektorów służy funkcja `c()`
+- Z grubsza wszystko w `R` jest wektorem (czasem o długości 1)
+- `[1]` w konsoli sugeruje pierwszą pozycję w wektorze
+
+## Wektory liczb
+```{r}
+c(1, 2, 3, 5, 7, 56.66)
+```
+
+## Wektory z tekstem
+```{r}
+c("Ala", "ma", "kota")
+```
+
+## Wektory wartości logicznych
+```{r}
+c(TRUE, FALSE, TRUE, TRUE, FALSE)
+```
+
+## Typy danych w wektorach
+```{r}
+# Wektor musi składać się z danych tego samego typu
+# R stara się to poprawić automatycznie
+c("ala", "ma", 3, "koty")
+```
+
+## Typy danych w wektorach
+```{r}
+# Wektor musi składać się z danych tego samego typu
+# R stara się to poprawić automatycznie
+c(T, T, F, T, 3)
+```
+
+## Typy danych w wektorach
+```{r}
+# Wektor musi składać się z danych tego samego typu
+# R stara się to poprawić automatycznie
+c("ala", "koty", 13, F)
+```
+
+## Sekwencje
+```{r}
+# Wektory można też tworzyć korzystając z sekwencji
+c(1:10)
+```
+
+## Sekwencje
+```{r}
+# Czasem sekwencje mogą być bardzo długie
+# (zauważ oznaczenia kolejnych elementów w wektorach)
+c(1:100)
+```
+
+## Sekwencje
+```{r}
+# Sekwencje można łączyć z innymi elementami
+c(1, 3, 5, 7, 10:20, -100)
+```
+
+## Operacje na wektorach
+```r
+# Na wektorach można wykonywać operacje, 
+# tak samo jak na "zwykłych" zmiennych
+a <- c(1:5)
+b <- c(6:10)
+a * 2
+b + 4
+b - a
+```
+
+## Operacje na wektorach
+```{r}
+a <- c(1:5)
+b <- c(6:10)
+a * 2
+b + 4
+b - a
+```
+
+## Podzbiory wektorów (subsetting)
+```{r}
+# Problem: chcemy pokazać tylko i-ty element wektora a
+a <- c("Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela")
+a[1]
+a[5]
+```
+
+## Podzbiory wektorów (subsetting)
+```{r}
+# Problem: chcemy pokazać kilka wybranych elementów wektora a
+a <- c("Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela")
+a[1:3]
+a[c(1, 3, 5)]
+```
+
+## Łączenie wektorów
+```r
+a <- c("wiosna", "lato")
+b <- c("jesień", "zima")
+c(a, b)
+```
+
+## Łączenie wektorów
+```{r}
+a <- c("wiosna", "lato")
+b <- c("jesień", "zima")
+c(a, b)
+```
+
+
+## Funkcje w `R` działają tak samo dla skalarów i dla wektorów
+```r
+a <- c(1, 2, 3, 5, -10.6789)
+abs(a)
+sqrt(a)
+round(a)
+```
+
+## Funkcje w `R` działają tak samo dla skalarów i dla wektorów
+```{r}
+a <- c(1, 2, 3, 5, -10.6789)
+abs(a)
+sqrt(a)
+round(a)
+```
+
+## Wektory świetnie nadają się do przechowywania danych i liczenia statystyk
+```r
+oceny_z_2_semestru <- c(5, 3, 4, 4.5, 3, 3.5, 5, 4.5)
+
+# Średnia
+mean(oceny_z_2_semestru)
+
+# Odchylenie standardowe
+sd(oceny_z_2_semestru)
+```
+
+## Wektory świetnie nadają się do przechowywania danych i liczenia statystyk
+```{r}
+oceny_z_2_semestru <- c(5, 3, 4, 4.5, 3, 3.5, 5, 4.5)
+mean(oceny_z_2_semestru)
+sd(oceny_z_2_semestru)
+```
+
+# Braki danych
+
+## Co jeśli zechcemy pokazać nieistniejący element wektora?
+```r
+a <- c("Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela")
+a[8]
+```
+
+## Co jeśli zechcemy pokazać nieistniejący element wektora?
+```{r}
+a <- c("Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela")
+a[8]
+```
+
+## NA
+- W języku `R` wartość `NA` jest szczególna - oznacza **brak danych** (*not available*)
+- Pamiętaj! `NA` nie jest tożsame z `0` ani `""` (pusty string)
+- Jeżeli coś jest `NA`, **nie wiemy** ile wynosi jego wartość
+
+## Operacje z `NA`
+```r
+3 + NA
+100 * NA
+2 + 2 + 2 + NA
+sin(NA)
+```
+
+## Operacje z `NA`
+```{r}
+3 + NA
+100 * NA
+2 + 2 + 2 + NA
+sin(NA)
+```
+
+## Operacje z `NA`
+```r
+abs(c(-1, -2, 3.14, NA))
+mean(c(3, 4, 5, NA))
+sd(c(5, 5, 5, 5, NA))
+```
+
+# Operatory porównania i operatory logiczne
+
+## Równość
+```r
+# Żeby sprawdzić, czy coś jest równe stosujemy operator ==
+2 == 2
+"ala" == "kota"
+100 == "100"
+```
+
+## Równość
+```{r}
+# Żeby sprawdzić, czy coś jest równe stosujemy operator ==
+2 == 2
+"ala" == "kota"
+100 == "100"
+```
+
+## Nierówność
+```{r}
+# Żeby sprawdzić, czy coś jest nierówne stosujemy operator !=
+2 != 2
+"ala" != "kota"
+100 != "100"
+```
+
+## Nierówność
+```r
+# Żeby sprawdzić, czy coś jest nierówne stosujemy operator !=
+2 != 2
+"ala" != "kota"
+100 != "100"
+```
+
+## Większe/mniejsze
+```r
+# Nierówności ostre/nieostre
+2 > 1
+2 >= 2
+2 < 1
+2 <= 1
+```
+
+## Większe/mniejsze
+```{r}
+# Nierówności ostre/nieostre
+2 > 1
+2 >= 2
+2 < 1
+2 <= 1
+```
+
+## Operatory logiczne
+
+## Koniunkcja
+```r
+TRUE & TRUE
+TRUE & FALSE
+FALSE & TRUE
+FALSE & FALSE
+```
+
+## Koniunkcja
+```{r}
+TRUE & TRUE
+TRUE & FALSE
+FALSE & TRUE
+FALSE & FALSE
+```
+
+## Koniunkcja
+```r
+(2 == 2) & (0 == 0)
+1 == abs(-1)
+(2 > 3) & (3 > 4)
+```
+
+## Koniunkcja
+```{r}
+(2 == 2) & (0 == 0)
+1 == abs(-1)
+(2 > 3) & (3 > 4)
+```
+
+## Alternatywa
+```r
+TRUE | TRUE
+TRUE | FALSE
+FALSE | TRUE
+FALSE | FALSE
+```
+
+## Alternatywa
+```{r}
+TRUE | TRUE
+TRUE | FALSE
+FALSE | TRUE
+FALSE | FALSE
+```
+
+## Alternatywa
+```r
+1 == abs(-1)
+(2 == 2) | (2 == 3)
+(0 != 0) | (2 >= 3)
+```
+
+## Alternatywa
+```{r}
+1 == abs(-1)
+(2 == 2) | (2 == 3)
+(0 != 0) | (2 >= 3)
+```
+
+## Negacja
+```r
+!TRUE
+!FALSE
+!(2 == 2)
+!((0 != 0) | (2 >= 3))
+```
+
+## Negacja
+```{r}
+!TRUE
+!FALSE
+!(2 == 2)
+!((0 != 0) | (2 >= 3))
+```
+

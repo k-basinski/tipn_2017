@@ -1,0 +1,24 @@
+---
+title: "Zadania, zajęcia pierwsze"
+output: html_document
+---
+
+## Zadanie 1-2
+1. Utwórz 4 wektory:
+    + `1_kwartal` z elementami `"Styczeń", "Luty", "Marzec"`
+    + `2_kwartal` z elementami `"Kwiecień", "Maj", "Czerwiec"`
+    + 3 i 4 kwartał odpowiednio, j.w.
+2. Utwórz wektor `rok` składający się z nazw 12 miesięcy używając wektorów z pkt.1
+3. Pokaż pierwsze dwa miesiące roku
+3. Pokaż ostatnie pięć miesięcy roku
+3. Pokaż miesiące nieparzyste
+5. Dla każdego miesiąca policz, ile jego nazwa ma liter (funkcja `nchar()`)
+6. Policz ile wynosi średnia i odchylenie standardowe ilości liter dla wszystkich miesięcy w roku. Ile wynosi średnia i odchylenie standardowe dla miesięcy zimowych (grudzień, styczeń, luty, marzec)?
+5. \* Pokaż wszystkie miesiące, których nazwy kończą się na *"ec"*. Podpowiedź - użyj funkcji `endsWith()` i `subset()`.
+
+## Zadanie 1-3
+1. Napisz skrypt, który wyliczy za ile godzin skończysz studia. Założenia:
+    + Studia kończą się 30 czerwca
+    + Studia można skończyć planowo, albo z poślizgiem (rocznym, dwuletnim...) Utwórz zmienną, która pozwoli łatwo tym manipulować.
+    + Dzisiejszą datę i godzinę można wpisać "na sztywno"
+    + Dla ułatwienia przyjmijmy, że rok zawsze trwa 365 dni a miesiąc zawsze 30

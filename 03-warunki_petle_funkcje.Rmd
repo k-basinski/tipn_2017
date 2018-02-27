@@ -1,0 +1,100 @@
+---
+title: "TIPN 3 - Warunki, pętle, funkcje cd"
+author: Krzysztof Basiński
+output:
+  revealjs::revealjs_presentation:
+    theme: serif
+    center: true
+    incremental: true
+---
+
+# Instrukcje warunkowe
+
+## If
+```r
+if(warunek) {
+  # ten kod zostanie wykonany wtedy i tylko wtedy,
+  # gdy warunek ma wartość TRUE
+}
+```
+
+## If
+```{r}
+wiek_ali <- 10
+if(wiek_ali < 18) { 
+    print("Ala jest niepełnoletnia")
+}
+```
+
+## If
+```{r}
+wiek_ali <- 19
+if(wiek_ali < 18) { 
+    print("Ala jest niepełnoletnia")
+}
+```
+
+## If/else
+```{r}
+wiek_ali <- 10
+if(wiek_ali < 18) { 
+  print("Ala jest niepełnoletnia")
+} else {
+  print("Ala jest pełnoletnia")
+}
+```
+
+## If/else
+```{r}
+wiek_ali <- 18
+if(wiek_ali < 18) { 
+  print("Ala jest niepełnoletnia")
+} else {
+  print("Ala jest pełnoletnia")
+}
+```
+
+## If/else if/else
+```{r}
+wiek_ali <- 18
+if(wiek_ali < 18) { 
+  print("Ala jest niepełnoletnia")
+} else if (wiek_ali == 18) {
+  print("Ala ma osiemnaście lat")
+} else {  
+  print("Ala jest pełnoletnia")
+}
+```
+
+
+# Pętle
+
+## Pętle
+- Pętle służą do wielokrotnego powtarzania czynności
+- Istnieją trzy rodzaje pętli w `R`:
+    + `for`
+    + `while`
+    + `repeat`
+    
+## For
+```r
+for(i in seq){
+  # zrób to dla każdego elementu sekwencji
+}
+```
+
+## For
+```{r}
+# Policz do dziesięciu
+for(i in 1:10){
+  print(i)
+}
+```
+
+## Przykład - lata przestępne
+- Latami przestępnymi są te, których numeracja:
+    + jest podzielna przez 4 i niepodzielna przez 100, lub
+    + jest podzielna przez 400.
+- Problem: pokaż wszystkie lata przestępne od 1800 roku do teraz
+
+
