@@ -26,14 +26,21 @@ output: html_document
 ## Zadanie 2-3
 Wydrukuj listę wszystkich lat przestępnych od 1800 roku do teraz. Użyj pętli `for`.
 Latami przestępnymi są te, których numeracja:
+
 - jest podzielna przez 4 i niepodzielna przez 100, **lub**
 - jest podzielna przez 400.
 
 ## Zadanie 2-4
-Zrób jeszcze raz zadanie 2-3, tym razem używając pętli `while` i funkcji `readline()`, aby wczytać dowolny rok rozpoczęcia listy.
+Zrób jeszcze raz zadanie 2-3, tym razem używając pętli `while` zamiast `for`. Użyj też funkcji `readline()`, aby wczytać dowolny rok rozpoczęcia listy.
 
-## Zadanie 2-5 (*)
+## Zadanie 2-5
+
+Napisz funkcję obliczającą n-ty wyraz ciągu Fibonacciego. 
+
+## Zadanie 2-6 (\*)
+
 Już po Świętach, ale co tam. Narysuj pół choinki. Ma wyglądać (mniej więcej) tak:
+
 ```
 [1] "   #"
 [1] "     #"
@@ -57,9 +64,9 @@ Już po Świętach, ale co tam. Narysuj pół choinki. Ma wyglądać (mniej wię
 [1] "                 #"
 [1] "                   #"
 ```
+
 Podpowiedzi:
-  - zdefiniuj funkcję `narysuj_galaz(jak_daleko_od_pnia, igla = "#")`
+
+  - zdefiniuj funkcję w rodzaju `narysuj_galaz(jak_daleko_od_pnia, igla = "#")`
   - przyda się funkcja `paste()`
   
-## Zadanie 2-6 (*)
-Napisz funkcję obliczającą n-ty wyraz ciągu Fibonacciego. 

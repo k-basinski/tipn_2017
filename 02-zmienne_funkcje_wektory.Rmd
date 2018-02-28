@@ -217,7 +217,7 @@ koty_ali
 ![Przykładowy skrypt](img/przykladowy_skrypt.png)
 
 ## Skrypty - run i source
-- Przycisk `Run` wykonuje bierzącą linijkę kodu albo zaznaczenie
+- Przycisk `Run` wykonuje bieżącą linijkę kodu albo zaznaczenie
 - Skrót: `ctrl/cmd + enter`
 - Przycisk `Source` wykonuje cały skrypt
 

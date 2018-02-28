@@ -284,3 +284,6 @@ print(b)
 - Wszelkie zmienne z których korzysta funkcja powinny być przekazywane przez **argumenty**
 - Wynik działania funkcji powinien być zwracany poprzez `return()`
 - Sprzyja to *reusability*
+
+## R Studio jest super
+- *Code -> Extract function* automatycznie zamienia dowolny fragment kodu w funkcję i dobiera odpowiednio parametry
