@@ -31,7 +31,7 @@ Latami przestępnymi są te, których numeracja:
 - jest podzielna przez 400.
 
 ## Zadanie 2-4
-Zrób jeszcze raz zadanie 2-3, tym razem używając pętli `while` zamiast `for`. Użyj też funkcji `readline()`, aby wczytać dowolny rok rozpoczęcia listy.
+Zrób jeszcze raz zadanie 2-3, tym razem używając pętli `while` zamiast `for`. 
 
 ## Zadanie 2-5 (\*)
 

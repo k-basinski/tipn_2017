@@ -1,0 +1,267 @@
+---
+title: "TIPN 4 - Import danych, tidyverse, wykresy w ggplot2"
+author: Krzysztof Basiński
+output:
+  revealjs::revealjs_presentation:
+    self_contained: false
+    lib_dir: reveal_libs
+    theme: serif
+    center: true
+    incremental: true
+---
+```{r}
+library(tidyverse)
+library(knitr)
+```
+
+# Tidyverse
+
+## Tidyverse
+![Tidyverse](img/tidyverse.png)
+
+## Hadley Wickham
+![Hadley](img/hadley.png)
+
+## Fajne rzeczy, które robi Hadley
+- [R for Data Science](http://r4ds.had.co.nz)
+- [Advanced R](http://adv-r.had.co.nz)
+- [Tidyverse](http://tidyverse.com)
+- i wiele innych - [Hadley @ github](https://github.com/hadley)
+
+## Tidyverse
+- Tidyverse to zbiór paczek wymyślonych po to, by praca z `R` była lekka, łatwa i przyjemna:
+    + readr - import danych
+    + ggplot2 - wykresy
+    + dplyr - grzebanie w danych
+    + tibble - fajne tabelki
+    + tidyr - *tidy data*
+    + purrr - programowanie funkcjonalne
+    
+## Instalacja
+```r
+install.packages("tidyverse")
+```
+
+## Ładowanie
+```r
+library(tidyverse)
+```
+
+# Import danych
+
+## Możemy do `R` importować wszelkiego rodzaju dane:
+- csv
+- xlsx
+- bazy danych
+- json
+- i wiele innych
+
+## CSV - `comma separated values`
+- Zwykły plik tekstowy
+- Najprostszy format zapisu danych tabelarycznych
+- Kolumny oddzielone przecinkami, srednikami, dwukropkami...
+- Wiersze oddzielone znakiem nowej linii
+- Wszystkie programy do analizy danych otwierają pliki csv
+
+## CSV - przykład
+```
+year;population;violent_crime;mansloughter;rape;robbery;assault;property_crime;burglary;larceny;gta
+1994;260327021.00;1857670.00;23326.00;102216.00;618949.00;1113179.00;12131873.00;2712774.00;7879812.00;1539287.00
+1995;262803276.00;1798792.00;21606.00;97470.00;580509.00;1099207.00;12063935.00;2593784.00;7997710.00;1472441.00
+1996;265228572.00;1688540.00;19645.00;96252.00;535594.00;1037049.00;11805323.00;2506400.00;7904685.00;1394238.00
+1997;267783607.00;1636096.00;18208.00;96153.00;498534.00;1023201.00;11558475.00;2460526.00;7743760.00;1354189.00
+...
+```
+
+## CSV - przykład
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+crime_in_us <- read_delim("datasets/crime_in_us.csv", 
+    ";", escape_double = FALSE, trim_ws = TRUE)
+
+crime_in_us[1:6, 1:6] %>%  kable()
+```
+
+
+## Import csv/xls/xlsx do `R`
+![import](img/import_data.png)
+
+# ggplot2
+
+## ggplot2
+![ggplot2](img/ggplot2.png)
+
+## Zbiór danych `diamonds`
+```{r}
+diamonds
+```
+
+## Zbiór danych `diamonds`
+```{r}
+str(diamonds)
+```
+
+## Zbiór danych `diamonds`
+```r
+?diamonds
+```
+
+## Wybierz tylko 100 pierwszych diamentów
+```{r}
+# wybierz tylko pierwszych 100 diamentów
+# przyspieszy to trochę obliczenia i sprawi, że
+# wykresy będą bardziej przejrzyste
+sto_diam <- diamonds[sample(nrow(diamonds), 100),]
+```
+
+
+## Wykres punktowy (scatterplot)
+```{r fig.width=6, fig.height=4}
+ggplot(data = sto_diam) + # Uwaga! + MUSI być na końcu linii!
+  geom_point(mapping = aes(x = carat, y = price))
+```
+
+## `color = cut`
+```{r fig.height=4, fig.width=6}
+ggplot(data = sto_diam) +
+  geom_point(mapping = aes(x = carat, y = price, color = cut))
+```
+
+
+## `position = "jitter"`
+```{r fig.height=4, fig.width=6}
+ggplot(data = sto_diam) +
+  geom_point(mapping = aes(x = carat, y = price, shape = cut), 
+             position = "jitter")
+```
+
+
+## facets
+```{r fig.height=4, fig.width=6}
+ggplot(data = sto_diam) +
+  geom_point(mapping = aes(x = carat, y = price)) +
+  facet_wrap(~ cut, nrow = 2)
+```
+
+
+## `geom_smooth`
+```{r fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+ggplot(data = sto_diam) +
+  geom_smooth(mapping = aes(x = carat, y = price))
+```
+
+
+## łączenie geomów
+```{r fig.height=4, fig.width=6, message=FALSE, warning=FALSE}
+ggplot(data = sto_diam, mapping = aes(x = carat, y = price)) +
+  geom_point() +
+  geom_smooth()
+```
+
+## Wykres słupkowy - barplot
+```{r fig.height=4, fig.width=6}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut))
+```
+
+
+## Kolorowy barplot
+```{r fig.height=4, fig.width=6}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = cut))
+```
+
+
+## `position = "fill"`
+```{r fig.height=4, fig.width=6}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = color), position = "fill")
+```
+
+
+## `position = "dodge"`
+```{r fig.height=4, fig.width=6}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = color), position = "dodge")
+```
+
+
+
+## Wykres kolumnowy - `geom_col`
+```{r fig.height=4, fig.width=6}
+ggplot(data = diamonds) + 
+  geom_col(mapping = aes(x = clarity, y = mean(price)))
+```
+
+
+## Ramka/wąsy - boxplot
+```{r fig.height=4, fig.width=6}
+ggplot(data = sto_diam, aes(x = clarity, y = price)) +
+  geom_boxplot()
+```
+
+## Ramka/wąsy - na opak
+```{r fig.height=4, fig.width=6}
+ggplot(data = sto_diam, aes(x = clarity, y = price)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+
+## Histogram
+```{r fig.height=4, fig.width=6}
+ggplot(data = diamonds) + 
+  geom_histogram(mapping = aes(price), binwidth = 1000)
+```
+
+## Nazwy osi
+```{r fig.width=6, fig.height=4}
+ggplot(data = sto_diam) +
+  geom_point(mapping = aes(x = carat, y = price)) +
+  labs(title = "Tytuł wykresu", x = "Karaty", y = "Cena")
+```
+
+## Wygląd - `themes`
+```{r fig.width=6, fig.height=4}
+ggplot(data = sto_diam) +
+  geom_point(mapping = aes(x = carat, y = price)) +
+  labs(title = "Tytuł wykresu", x = "Karaty", y = "Cena") +
+  theme_minimal()
+```
+
+## Wygląd - `themes`
+```{r fig.width=6, fig.height=4}
+ggplot(data = sto_diam) +
+  geom_point(mapping = aes(x = carat, y = price)) +
+  labs(title = "Tytuł wykresu", x = "Karaty", y = "Cena") +
+  theme_dark()
+```
+
+## Wygląd - `themes`
+```{r fig.width=6, fig.height=4}
+ggplot(data = sto_diam) +
+  geom_point(mapping = aes(x = carat, y = price)) +
+  labs(title = "Tytuł wykresu", x = "Karaty", y = "Cena") +
+  theme_light()
+```
+
+## Wygląd - `themes`
+```{r fig.width=6, fig.height=4}
+ggplot(data = sto_diam) +
+  geom_point(mapping = aes(x = carat, y = price)) +
+  labs(title = "Tytuł wykresu", x = "Karaty", y = "Cena") +
+  theme_classic()
+```
+
+## To nie wszystko! Oj nie!
+<http://ggplot2.tidyverse.org>
+
+## To nie wszystko!
+![facets](img/ggplot_facets.png)
+
+## To nie wszystko!
+![pie chart](img/ggplot_pie.png)
+
+## To nie wszystko!
+![facets](img/ggplot_map.png)
+

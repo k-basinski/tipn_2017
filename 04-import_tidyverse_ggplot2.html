@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Krzysztof Basiński" />
+  <title>TIPN 4 - Import danych, tidyverse, wykresy w ggplot2</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal_libs/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="reveal_libs/reveal.js-3.3.0.1/css/theme/serif.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">TIPN 4 - Import danych, tidyverse, wykresy w ggplot2</h1>
+    <h2 class="author">Krzysztof Basiński</h2>
+</section>
+
+<section class="slide level2">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+<pre><code>## ── Attaching packages ────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.4
+## ✔ tidyr   0.8.0     ✔ stringr 1.3.0
+## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
+<pre><code>## ── Conflicts ───────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(knitr)</code></pre></div>
+</section>
+<section><section id="tidyverse" class="titleslide slide level1"><h1>Tidyverse</h1></section><section id="tidyverse-1" class="slide level2">
+<h2>Tidyverse</h2>
+<p><img src="img/tidyverse.png" alt="Tidyverse" /></p>
+</section><section id="hadley-wickham" class="slide level2">
+<h2>Hadley Wickham</h2>
+<p><img src="img/hadley.png" alt="Hadley" /></p>
+</section><section id="fajne-rzeczy-ktore-robi-hadley" class="slide level2">
+<h2>Fajne rzeczy, które robi Hadley</h2>
+<ul>
+<li class="fragment"><a href="http://r4ds.had.co.nz">R for Data Science</a></li>
+<li class="fragment"><a href="http://adv-r.had.co.nz">Advanced R</a></li>
+<li class="fragment"><a href="http://tidyverse.com">Tidyverse</a></li>
+<li class="fragment">i wiele innych - <a href="https://github.com/hadley">Hadley @ github</a></li>
+</ul>
+</section><section id="tidyverse-2" class="slide level2">
+<h2>Tidyverse</h2>
+<ul>
+<li class="fragment">Tidyverse to zbiór paczek wymyślonych po to, by praca z <code>R</code> była lekka, łatwa i przyjemna:
+<ul>
+<li class="fragment">readr - import danych</li>
+<li class="fragment">ggplot2 - wykresy</li>
+<li class="fragment">dplyr - grzebanie w danych</li>
+<li class="fragment">tibble - fajne tabelki</li>
+<li class="fragment">tidyr - <em>tidy data</em></li>
+<li class="fragment">purrr - programowanie funkcjonalne</li>
+</ul></li>
+</ul>
+</section><section id="instalacja" class="slide level2">
+<h2>Instalacja</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre></div>
+</section><section id="adowanie" class="slide level2">
+<h2>Ładowanie</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+</section></section>
+<section><section id="import-danych" class="titleslide slide level1"><h1>Import danych</h1></section><section id="mozemy-do-r-importowac-wszelkiego-rodzaju-dane" class="slide level2">
+<h2>Możemy do <code>R</code> importować wszelkiego rodzaju dane:</h2>
+<ul>
+<li class="fragment">csv</li>
+<li class="fragment">xlsx</li>
+<li class="fragment">bazy danych</li>
+<li class="fragment">json</li>
+<li class="fragment">i wiele innych</li>
+</ul>
+</section><section id="csv---comma-separated-values" class="slide level2">
+<h2>CSV - <code>comma separated values</code></h2>
+<ul>
+<li class="fragment">Zwykły plik tekstowy</li>
+<li class="fragment">Najprostszy format zapisu danych tabelarycznych</li>
+<li class="fragment">Kolumny oddzielone przecinkami, srednikami, dwukropkami…</li>
+<li class="fragment">Wiersze oddzielone znakiem nowej linii</li>
+<li class="fragment">Wszystkie programy do analizy danych otwierają pliki csv</li>
+</ul>
+</section><section id="csv---przykad" class="slide level2">
+<h2>CSV - przykład</h2>
+<pre><code>year;population;violent_crime;mansloughter;rape;robbery;assault;property_crime;burglary;larceny;gta
+1994;260327021.00;1857670.00;23326.00;102216.00;618949.00;1113179.00;12131873.00;2712774.00;7879812.00;1539287.00
+1995;262803276.00;1798792.00;21606.00;97470.00;580509.00;1099207.00;12063935.00;2593784.00;7997710.00;1472441.00
+1996;265228572.00;1688540.00;19645.00;96252.00;535594.00;1037049.00;11805323.00;2506400.00;7904685.00;1394238.00
+1997;267783607.00;1636096.00;18208.00;96153.00;498534.00;1023201.00;11558475.00;2460526.00;7743760.00;1354189.00
+...</code></pre>
+</section><section id="csv---przykad-1" class="slide level2">
+<h2>CSV - przykład</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">year</th>
+<th style="text-align: right;">population</th>
+<th style="text-align: right;">violent_crime</th>
+<th style="text-align: right;">mansloughter</th>
+<th style="text-align: right;">rape</th>
+<th style="text-align: right;">robbery</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1994</td>
+<td style="text-align: right;">260327021</td>
+<td style="text-align: right;">1857670</td>
+<td style="text-align: right;">23326</td>
+<td style="text-align: right;">102216</td>
+<td style="text-align: right;">618949</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1995</td>
+<td style="text-align: right;">262803276</td>
+<td style="text-align: right;">1798792</td>
+<td style="text-align: right;">21606</td>
+<td style="text-align: right;">97470</td>
+<td style="text-align: right;">580509</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1996</td>
+<td style="text-align: right;">265228572</td>
+<td style="text-align: right;">1688540</td>
+<td style="text-align: right;">19645</td>
+<td style="text-align: right;">96252</td>
+<td style="text-align: right;">535594</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1997</td>
+<td style="text-align: right;">267783607</td>
+<td style="text-align: right;">1636096</td>
+<td style="text-align: right;">18208</td>
+<td style="text-align: right;">96153</td>
+<td style="text-align: right;">498534</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1998</td>
+<td style="text-align: right;">270248003</td>
+<td style="text-align: right;">1533887</td>
+<td style="text-align: right;">16974</td>
+<td style="text-align: right;">93144</td>
+<td style="text-align: right;">447186</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1999</td>
+<td style="text-align: right;">272690813</td>
+<td style="text-align: right;">1426044</td>
+<td style="text-align: right;">15522</td>
+<td style="text-align: right;">89411</td>
+<td style="text-align: right;">409371</td>
+</tr>
+</tbody>
+</table>
+</section><section id="import-csvxlsxlsx-do-r" class="slide level2">
+<h2>Import csv/xls/xlsx do <code>R</code></h2>
+<p><img src="img/import_data.png" alt="import" /></p>
+</section></section>
+<section><section id="ggplot2" class="titleslide slide level1"><h1>ggplot2</h1></section><section id="ggplot2-1" class="slide level2">
+<h2>ggplot2</h2>
+<p><img src="img/ggplot2.png" alt="ggplot2" /></p>
+</section><section id="zbior-danych-diamonds" class="slide level2">
+<h2>Zbiór danych <code>diamonds</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds</code></pre></div>
+<pre><code>## # A tibble: 53,940 x 10
+##    carat cut       color clarity depth table price     x     y     z
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 0.230 Ideal     E     SI2      61.5   55.   326  3.95  3.98  2.43
+##  2 0.210 Premium   E     SI1      59.8   61.   326  3.89  3.84  2.31
+##  3 0.230 Good      E     VS1      56.9   65.   327  4.05  4.07  2.31
+##  4 0.290 Premium   I     VS2      62.4   58.   334  4.20  4.23  2.63
+##  5 0.310 Good      J     SI2      63.3   58.   335  4.34  4.35  2.75
+##  6 0.240 Very Good J     VVS2     62.8   57.   336  3.94  3.96  2.48
+##  7 0.240 Very Good I     VVS1     62.3   57.   336  3.95  3.98  2.47
+##  8 0.260 Very Good H     SI1      61.9   55.   337  4.07  4.11  2.53
+##  9 0.220 Fair      E     VS2      65.1   61.   337  3.87  3.78  2.49
+## 10 0.230 Very Good H     VS1      59.4   61.   338  4.00  4.05  2.39
+## # ... with 53,930 more rows</code></pre>
+</section><section id="zbior-danych-diamonds-1" class="slide level2">
+<h2>Zbiór danych <code>diamonds</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(diamonds)</code></pre></div>
+<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    53940 obs. of  10 variables:
+##  $ carat  : num  0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...
+##  $ cut    : Ord.factor w/ 5 levels &quot;Fair&quot;&lt;&quot;Good&quot;&lt;..: 5 4 2 4 2 3 3 3 1 3 ...
+##  $ color  : Ord.factor w/ 7 levels &quot;D&quot;&lt;&quot;E&quot;&lt;&quot;F&quot;&lt;&quot;G&quot;&lt;..: 2 2 2 6 7 7 6 5 2 5 ...
+##  $ clarity: Ord.factor w/ 8 levels &quot;I1&quot;&lt;&quot;SI2&quot;&lt;&quot;SI1&quot;&lt;..: 2 3 5 4 2 6 7 3 4 5 ...
+##  $ depth  : num  61.5 59.8 56.9 62.4 63.3 62.8 62.3 61.9 65.1 59.4 ...
+##  $ table  : num  55 61 65 58 58 57 57 55 61 61 ...
+##  $ price  : int  326 326 327 334 335 336 336 337 337 338 ...
+##  $ x      : num  3.95 3.89 4.05 4.2 4.34 3.94 3.95 4.07 3.87 4 ...
+##  $ y      : num  3.98 3.84 4.07 4.23 4.35 3.96 3.98 4.11 3.78 4.05 ...
+##  $ z      : num  2.43 2.31 2.31 2.63 2.75 2.48 2.47 2.53 2.49 2.39 ...</code></pre>
+</section><section id="zbior-danych-diamonds-2" class="slide level2">
+<h2>Zbiór danych <code>diamonds</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?diamonds</code></pre></div>
+</section><section id="wybierz-tylko-100-pierwszych-diamentow" class="slide level2">
+<h2>Wybierz tylko 100 pierwszych diamentów</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># wybierz tylko pierwszych 100 diamentów</span>
+<span class="co"># przyspieszy to trochę obliczenia i sprawi, że</span>
+<span class="co"># wykresy będą bardziej przejrzyste</span>
+sto_diam &lt;-<span class="st"> </span>diamonds[<span class="kw">sample</span>(<span class="kw">nrow</span>(diamonds), <span class="dv">100</span>),]</code></pre></div>
+</section><section id="wykres-punktowy-scatterplot" class="slide level2">
+<h2>Wykres punktowy (scatterplot)</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> sto_diam) <span class="op">+</span><span class="st"> </span><span class="co"># Uwaga! + MUSI być na końcu linii!</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price))</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-6-1.png" width="576" /></p>
+</section><section id="color-cut" class="slide level2">
+<h2><code>color = cut</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> sto_diam) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price, <span class="dt">color =</span> cut))</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-7-1.png" width="576" /></p>
+</section><section id="position-jitter" class="slide level2">
+<h2><code>position = &quot;jitter&quot;</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> sto_diam) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price, <span class="dt">shape =</span> cut), 
+             <span class="dt">position =</span> <span class="st">&quot;jitter&quot;</span>)</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-8-1.png" width="576" /></p>
+</section><section id="facets" class="slide level2">
+<h2>facets</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> sto_diam) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>cut, <span class="dt">nrow =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-9-1.png" width="576" /></p>
+</section><section id="geom_smooth" class="slide level2">
+<h2><code>geom_smooth</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> sto_diam) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price))</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-10-1.png" width="576" /></p>
+</section><section id="aczenie-geomow" class="slide level2">
+<h2>łączenie geomów</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> sto_diam, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>()</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-11-1.png" width="576" /></p>
+</section><section id="wykres-supkowy---barplot" class="slide level2">
+<h2>Wykres słupkowy - barplot</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut))</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-12-1.png" width="576" /></p>
+</section><section id="kolorowy-barplot" class="slide level2">
+<h2>Kolorowy barplot</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">fill =</span> cut))</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-13-1.png" width="576" /></p>
+</section><section id="position-fill" class="slide level2">
+<h2><code>position = &quot;fill&quot;</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">fill =</span> color), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>)</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-14-1.png" width="576" /></p>
+</section><section id="position-dodge" class="slide level2">
+<h2><code>position = &quot;dodge&quot;</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">fill =</span> color), <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-15-1.png" width="576" /></p>
+</section><section id="wykres-kolumnowy---geom_col" class="slide level2">
+<h2>Wykres kolumnowy - <code>geom_col</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> clarity, <span class="dt">y =</span> <span class="kw">mean</span>(price)))</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-16-1.png" width="576" /></p>
+</section><section id="ramkawasy---boxplot" class="slide level2">
+<h2>Ramka/wąsy - boxplot</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> sto_diam, <span class="kw">aes</span>(<span class="dt">x =</span> clarity, <span class="dt">y =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-17-1.png" width="576" /></p>
+</section><section id="ramkawasy---na-opak" class="slide level2">
+<h2>Ramka/wąsy - na opak</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> sto_diam, <span class="kw">aes</span>(<span class="dt">x =</span> clarity, <span class="dt">y =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-18-1.png" width="576" /></p>
+</section><section id="histogram" class="slide level2">
+<h2>Histogram</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(price), <span class="dt">binwidth =</span> <span class="dv">1000</span>)</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-19-1.png" width="576" /></p>
+</section><section id="nazwy-osi" class="slide level2">
+<h2>Nazwy osi</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> sto_diam) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Tytuł wykresu&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Karaty&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Cena&quot;</span>)</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-20-1.png" width="576" /></p>
+</section><section id="wyglad---themes" class="slide level2">
+<h2>Wygląd - <code>themes</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> sto_diam) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Tytuł wykresu&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Karaty&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Cena&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-21-1.png" width="576" /></p>
+</section><section id="wyglad---themes-1" class="slide level2">
+<h2>Wygląd - <code>themes</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> sto_diam) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Tytuł wykresu&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Karaty&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Cena&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_dark</span>()</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-22-1.png" width="576" /></p>
+</section><section id="wyglad---themes-2" class="slide level2">
+<h2>Wygląd - <code>themes</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> sto_diam) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Tytuł wykresu&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Karaty&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Cena&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_light</span>()</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-23-1.png" width="576" /></p>
+</section><section id="wyglad---themes-3" class="slide level2">
+<h2>Wygląd - <code>themes</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> sto_diam) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Tytuł wykresu&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Karaty&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Cena&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_classic</span>()</code></pre></div>
+<p><img src="04-import_tidyverse_ggplot2_files/figure-revealjs/unnamed-chunk-24-1.png" width="576" /></p>
+</section><section id="to-nie-wszystko-oj-nie" class="slide level2">
+<h2>To nie wszystko! Oj nie!</h2>
+<p><a href="http://ggplot2.tidyverse.org" class="uri">http://ggplot2.tidyverse.org</a></p>
+</section><section id="to-nie-wszystko" class="slide level2">
+<h2>To nie wszystko!</h2>
+<p><img src="img/ggplot_facets.png" alt="facets" /></p>
+</section><section id="to-nie-wszystko-1" class="slide level2">
+<h2>To nie wszystko!</h2>
+<p><img src="img/ggplot_pie.png" alt="pie chart" /></p>
+</section><section id="to-nie-wszystko-2" class="slide level2">
+<h2>To nie wszystko!</h2>
+<p><img src="img/ggplot_map.png" alt="facets" /></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal_libs/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="reveal_libs/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
