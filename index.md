@@ -9,7 +9,9 @@ Pamiętajcie, każdy powinien mieć zainstalowane i działające co najmniej te 
 
 - [R](https://cran.r-project.org/) - znajdziecie tu linki do instalacji dla każdego OSa, wraz z instrukcjami
 - [R Studio](https://www.rstudio.com/products/rstudio/download/) - oczywiście interesuje was wersja na licencji Open Source
-- [GitHub Desktop](https://desktop.github.com/) - od razu na pierwszej stronie macie link "Download for XXX" (Windows/MacOS/Linux)
+- [GitHub Desktop](https://desktop.github.com/) - od razu na pierwszej stronie macie link "Download for XXX" (Windows/MacOS/Linux).
+
+Proszę też założyć sobie (oczywiście darmowe) konto na serwisie github.com, do pracy z GitHub Desktop.
 
 ## Terminy
 Zajęcia odbywają się w czwartki, w Centrum Medycyny Inwazyjnej, w sali 0/U/07 (wchodząc głównym wejściem od ul. Smoluchowskiego korytarz po lewej stronie).
