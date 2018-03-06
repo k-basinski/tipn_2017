@@ -9,7 +9,7 @@ Pamiętajcie, każdy powinien mieć zainstalowane i działające co najmniej te 
 
 - [R](https://cran.r-project.org/) - znajdziecie tu linki do instalacji dla każdego OSa, wraz z instrukcjami
 - [R Studio](https://www.rstudio.com/products/rstudio/download/) - oczywiście interesuje was wersja na licencji Open Source
-- [GitHub Desktop](https://desktop.github.com/) - od razu na pierwszej stronie macie link "Download for XXX" (Windows/MacOS/Linux).
+- [GitHub Desktop](https://desktop.github.com/) - od razu na pierwszej stronie macie link "Download for XXX" (Windows/MacOS). Użytkownicy Linuxów skazani są na pracę w trybie tekstowym z Gitem (i zakładam, że potrafią go zainstalować sami:)
 
 Proszę też założyć sobie (oczywiście darmowe) konto na serwisie [github](https://github.com), konieczne do pracy z GitHub Desktop.
 
