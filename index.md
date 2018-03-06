@@ -1,10 +1,9 @@
 # Technologie informatyczne w pracy naukowej
-To jest strona przedmiotu `Technologie informatyczne w pracy naukowej`.
+To jest strona przedmiotu `Technologie informatyczne w pracy naukowej`. Ostatnia aktualizacja strony: **6 marca 2018.**
 
 ## Organizacja zajęć
 Bardzo proszę, aby wszyscy przynieśli swoje laptopy na zajęcia!
 
-**Aktualizacja, 6 marca!**
 
 Pamiętajcie, każdy powinien mieć zainstalowane i działające co najmniej te trzy programy:
 
