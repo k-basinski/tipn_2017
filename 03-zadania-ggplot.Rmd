@@ -1,0 +1,33 @@
+---
+title: "Zadania, zajęcia trzecie"
+output: html_document
+---
+
+# ggplot2
+
+## Dane
+Skorzystaj ze zbioru `mpg`, dołączonego do `ggplot2`. Zbiór zawiera dane o 234 samochodach. Będą nas interesować nastepujące zmienne:
+
+- `displ` - pojemność silnika, w litrach
+- `year` - rok produkcji
+- `cty` - spalanie w mieście
+- `hwy` - spalanie w trasie
+- `class` - klasa samochodu:
+    + 2seater
+    + compact
+    + midsize
+    + minivan
+    + pickup
+    + subcompact
+    + suv
+
+Zbiór możesz obejżeć za pomocą:
+```r
+mpg # pierwsze kilka rekordów
+str(mpg) # struktura całego zbioru
+view(mpg) # przeglądarka R Studio
+```
+
+## Zadanie 3-1
+
+

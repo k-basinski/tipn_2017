@@ -1,33 +1,15 @@
 ---
-title: "Zadania, zajęcia trzecie"
+title: "Zadania - zajęcia trzecie"
+author: "Krzysztof Basiński"
 output: html_document
 ---
 
-# ggplot2
-
-## Dane
-Skorzystaj ze zbioru `mpg`, dołączonego do `ggplot2`. Zbiór zawiera dane o 234 samochodach. Będą nas interesować nastepujące zmienne:
-
-- `displ` - pojemność silnika, w litrach
-- `year` - rok produkcji
-- `cty` - spalanie w mieście
-- `hwy` - spalanie w trasie
-- `class` - klasa samochodu:
-    + 2seater
-    + compact
-    + midsize
-    + minivan
-    + pickup
-    + subcompact
-    + suv
-
-Zbiór możesz obejżeć za pomocą:
-```r
-mpg # pierwsze kilka rekordów
-str(mpg) # struktura całego zbioru
-view(mpg) # przeglądarka R Studio
-```
-
 ## Zadanie 3-1
 
+1. Utwórz puste repozytorium na GitHubie, w którym będziesz trzymać rozwiązania zadań. Niech nazywa się tipn__zad_*twoje_nazwisko*. Napisz ładny plik README.
 
+2. Sklonuj repozytorium na dysk przy użyciu GitHub Desktop. Skopiuj do niego utworzony na pierwszych zajęciach plik whoami.txt. Umieść w nim też rozwiązania zadań z zajęć drugich. Nazwy plików mają mieć format `zadX-Y.R`, gdzie `X-Y` to numer zadania, np. `zad2-3.R`, `zad2-5.R`.
+
+3. Po skończonej pracy wykonaj commit i zsynchronizuj swoje repo z GitHubem.
+
+4. Znajdź mnie na GitHubie. Mój nick: `k-basinski`. Naciśnij przycisk `follow`.
