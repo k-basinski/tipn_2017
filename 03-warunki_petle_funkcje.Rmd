@@ -99,6 +99,23 @@ if(!(F | T) == (!F & !T)) {
     + `while`
     + `repeat`
     
+## Pętla `while`
+```r
+while(warunek) {
+  # to będzie się kręcić aż warunek stanie się fałszywy
+}
+```
+
+## Pętla `while`
+```{r}
+i <- 0
+while(i < 5){
+  print(i)
+  i <- i + 1
+}
+```
+    
+
 ## For
 ```r
 for(i in seq){
@@ -145,30 +162,8 @@ for(i in 1:3) {
 }
 ```
 
-## Pętla `while`
-```r
-while(warunek) {
-  # to będzie się kręcić aż warunek stanie się fałszywy
-}
-```
-
-## Pętla `while`
-```{r}
-i <- 0
-while(i < 5){
-  print(i)
-  i <- i + 1
-}
-```
 
 
-## Pętla `while` i `readline()`
-```r
-input <- readline(prompt = "Jesteś gupi!...")
-while(input != "sam jesteś gupi!") {
-  input <- readline(prompt = "Jesteś gupi!... ")
-}
-```
 
 # Więcej na temat funkcji
 
