@@ -6,7 +6,7 @@ output: html_document
 
 ## Zadanie 3-1
 
-1. Utwórz puste repozytorium na GitHubie, w którym będziesz trzymać rozwiązania zadań. Niech nazywa się tipn__zad_*twoje_nazwisko*. Napisz ładny plik README.
+1. Utwórz puste repozytorium na GitHubie, w którym będziesz trzymać rozwiązania zadań. Niech nazywa się tipn_zad_*twoje_nazwisko*. Napisz ładny plik README.
 
 2. Sklonuj repozytorium na dysk przy użyciu GitHub Desktop. Skopiuj do niego utworzony na pierwszych zajęciach plik whoami.txt. Umieść w nim też rozwiązania zadań z zajęć drugich. Nazwy plików mają mieć format `zadX-Y.R`, gdzie `X-Y` to numer zadania, np. `zad2-3.R`, `zad2-5.R`.
 
