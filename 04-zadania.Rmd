@@ -5,7 +5,19 @@ date: "3/15/2018"
 output: html_document
 ---
 
-Jak zwykle, wszystkie rozwiązania umieść w swoim repozytorium na githubie.
+Jak zwykle, wszystkie rozwiązania umieść w swoim repozytorium na githubie (`tipn_zad_nazwisko`). Tym razem proszę, aby rozwiązania wszystkich zadań trafiły do jednego pliku o nazwie `zadania4.R`. Poszczególne zadania proszę oddzielić komentarzami w ten sposób:
+
+```
+# Zad 4-1
+tu jakiś kod...
+```
+
+Po każdym zadaniu zróbcie kilka pustych linijek, dla czytelności.
+
+Każdy wykres proszę **wyeksportować do pliku png!** Powinien mieć szerokośc 500px i wysokość 400px. Pliki powinny mieć nazwy typu `zad4-1.png`, `zad4-2.png` itd. i oczywiście powinny znaleźć się w waszym repo.
+
+Pamiętajcie, aby po skończeniu pracy zrobić commit i pchnąć zmiany na github!
+
 
 ## Zadanie 4-1
 Będziemy pracować na zbiorze `mpg` dostępnym razem z paczką `ggplot2`. Korzystając z konsoli oraz mózgu dowiedz się jak najwięcej o danych w zbiorze `mpg` (przyda się funkcja `?` i wikipedia). W pliku tekstowym odpowiedz na następujące pytania:
