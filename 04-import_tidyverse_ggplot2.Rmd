@@ -246,7 +246,7 @@ ggplot(data = sto_diam) +
 ```
 
 ## Wygląd - `themes`
-```{r fig.width=6, fig.height=4}
+```{r fig.width=7, fig.height=5}
 ggplot(data = sto_diam) +
   geom_point(mapping = aes(x = carat, y = price)) +
   labs(title = "Tytuł wykresu", x = "Karaty", y = "Cena") +

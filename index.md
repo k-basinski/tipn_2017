@@ -26,8 +26,10 @@ Godz. 16.00 - 19.45. Zajęcia co dwa tygodnie, gr. A zaczyna 22.02, gr. B zaczyn
 - [01 Jak działają komputery. Hello world!](01-hello_world.html)
 - [02 Zmienne, funkcje, wektory](02-zmienne_funkcje_wektory.html)
 - [03 Warunki, pętle, więcej o funkcjach](03-warunki_petle_funkcje.html)
+- [04 Tidyverse, ggplot2](04-import_tidyverse_ggplot2.html)
 - [05 Git jest git](05-git_jest_git.html)
 
 ## Zadania
 - [Zajęcia drugie](02-zadania.html)
 - [Zajęcia trzecie](03-zadania.html)
+- [Zajęcia czwarte](04-zadania.html)
