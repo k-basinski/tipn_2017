@@ -28,7 +28,7 @@ Będziemy pracować na zbiorze `mpg` dostępnym razem z paczką `ggplot2`. Korzy
 4. Co oznaczają poszczególne zmienne? Zrób listę zmiennych wraz z krótkim opisem, co one oznaczają.
 
 ## Zadanie 4-2
-Narysuj wykres punktowy pokazujący zależność pojemności silnika od średniego spalania w mieście.
+Narysuj wykres punktowy pokazujący zależność pojemności silnika od spalania w mieście.
 
 ## Zadanie 4-3
 Narysuj wykres słupkowy pokazujący ilość samochodów w poszczególnych klasach w zbiorze. Zrób, żeby wykres był ładny i kolorowy. Zadbaj o oznaczenia osi i tytuł.
