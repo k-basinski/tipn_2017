@@ -51,3 +51,4 @@ Godz. 16.00 - 19.45. Zajęcia co dwa tygodnie.
 - [Zajęcia drugie](02-zadania.html)
 - [Zajęcia trzecie](03-zadania.html)
 - [Zajęcia czwarte](04-zadania.html)
+- [Zajęcia piąte](05-zadania.html)
