@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Krzysztof Basiński" />
+  <title>TIPN 6 - Grzebanie kombinerkami - dplyr</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal_libs/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="reveal_libs/reveal.js-3.3.0.1/css/theme/serif.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">TIPN 6 - Grzebanie kombinerkami - dplyr</h1>
+    <h2 class="author">Krzysztof Basiński</h2>
+</section>
+
+<section><section id="import-danych" class="titleslide slide level1"><h1>Import danych</h1></section><section id="mozemy-do-r-importowac-wszelkiego-rodzaju-dane" class="slide level2">
+<h2>Możemy do <code>R</code> importować wszelkiego rodzaju dane:</h2>
+<ul>
+<li class="fragment">csv</li>
+<li class="fragment">xlsx</li>
+<li class="fragment">bazy danych</li>
+<li class="fragment">json</li>
+<li class="fragment">i wiele innych</li>
+</ul>
+</section><section id="csv---comma-separated-values" class="slide level2">
+<h2>CSV - <code>comma separated values</code></h2>
+<ul>
+<li class="fragment">Zwykły plik tekstowy</li>
+<li class="fragment">Najprostszy format zapisu danych tabelarycznych</li>
+<li class="fragment">Kolumny oddzielone przecinkami, srednikami, dwukropkami…</li>
+<li class="fragment">Wiersze oddzielone znakiem nowej linii</li>
+<li class="fragment">Wszystkie programy do analizy danych otwierają pliki csv</li>
+</ul>
+</section><section id="csv---przykad" class="slide level2">
+<h2>CSV - przykład</h2>
+<pre><code>year;population;violent_crime;mansloughter;rape;robbery;assault;property_crime;burglary;larceny;gta
+1994;260327021.00;1857670.00;23326.00;102216.00;618949.00;1113179.00;12131873.00;2712774.00;7879812.00;1539287.00
+1995;262803276.00;1798792.00;21606.00;97470.00;580509.00;1099207.00;12063935.00;2593784.00;7997710.00;1472441.00
+1996;265228572.00;1688540.00;19645.00;96252.00;535594.00;1037049.00;11805323.00;2506400.00;7904685.00;1394238.00
+1997;267783607.00;1636096.00;18208.00;96153.00;498534.00;1023201.00;11558475.00;2460526.00;7743760.00;1354189.00
+...</code></pre>
+</section><section id="csv---przykad-1" class="slide level2">
+<h2>CSV - przykład</h2>
+<pre><code>## # A tibble: 6 x 6
+##    year population violent_crime mansloughter    rape robbery
+##   &lt;int&gt;      &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1  1994 260327021.      1857670.       23326. 102216. 618949.
+## 2  1995 262803276.      1798792.       21606.  97470. 580509.
+## 3  1996 265228572.      1688540.       19645.  96252. 535594.
+## 4  1997 267783607.      1636096.       18208.  96153. 498534.
+## 5  1998 270248003.      1533887.       16974.  93144. 447186.
+## 6  1999 272690813.      1426044.       15522.  89411. 409371.</code></pre>
+</section></section>
+<section><section id="dplyr" class="titleslide slide level1"><h1>dplyr</h1></section><section id="tidyverse" class="slide level2">
+<h2>Tidyverse</h2>
+<p><img src="img/tidyverse.png" alt="Tidyverse" /></p>
+</section><section id="hadley-wickham" class="slide level2">
+<h2>Hadley Wickham</h2>
+<p><img src="img/hadley.png" alt="Hadley" /></p>
+</section><section id="tidyverse-1" class="slide level2">
+<h2>Tidyverse</h2>
+<ul>
+<li class="fragment">Tidyverse to zbiór paczek wymyślonych po to, by praca z <code>R</code> była lekka, łatwa i przyjemna:
+<ul>
+<li class="fragment">readr - import danych</li>
+<li class="fragment">ggplot2 - wykresy</li>
+<li class="fragment"><strong>dplyr - grzebanie w danych</strong></li>
+<li class="fragment">tibble - fajne tabelki</li>
+<li class="fragment">tidyr - <em>tidy data</em></li>
+<li class="fragment">purrr - programowanie funkcjonalne</li>
+</ul></li>
+</ul>
+</section><section id="r-for-data-science" class="slide level2">
+<h2>R For Data Science</h2>
+<p><a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a></p>
+</section><section id="dplyr-1" class="slide level2">
+<h2>dplyr</h2>
+<p>Opiera się na <em>czasownikach</em> (<em>verbs</em>):</p>
+<ul>
+<li class="fragment">wybierają obserwacje o zadanych wartościach (<code>filter()</code>)</li>
+<li class="fragment">sortują obserwacje (<code>arrange()</code>)</li>
+<li class="fragment">wybierają zmienne po nazwach (<code>select()</code>)</li>
+<li class="fragment">tworzą nowe zmienne jako funkcje starych (<code>mutate()</code>)</li>
+<li class="fragment">podsumowują wartości zmiennych (<code>summarise()</code>)</li>
+</ul>
+</section><section id="dplyr-2" class="slide level2">
+<h2>dplyr</h2>
+<p>Czasowniki domyślnie działają na całym zbiorze danych. Jeśli chcemy podzielić zbiór na grupy, możemy skorzystać z <code>group_by()</code>.</p>
+</section><section id="dplyr-3" class="slide level2">
+<h2>dplyr</h2>
+<p>Każdy czasownik działa podobnie:</p>
+<ul>
+<li class="fragment">Jako pierwszy argument przyjmuję <em>tibble</em> na której ma coś zrobić</li>
+<li class="fragment">Kolejne argumenty mówią co ma zrobić, nazwy zmiennych wpisujemy <strong>bez cudzysłowów</strong></li>
+<li class="fragment">Czasownik zwraca nową <em>tibble</em></li>
+</ul>
+</section><section id="bedziemy-grzebac-w" class="slide level2">
+<h2>Będziemy grzebać w…</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nycflights13)
+flights
+<span class="kw">View</span>(flights)
+?flights</code></pre></div>
+</section><section id="filter" class="slide level2">
+<h2><code>filter()</code></h2>
+<p><em>Pokaż mi wszystkie obserwacje, które…</em></p>
+<p><code>filter(zbiór, warunki)</code></p>
+</section><section id="wszystkie-loty-trzynastego-maja" class="slide level2">
+<h2>Wszystkie loty trzynastego maja</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights, month <span class="op">==</span><span class="st"> </span><span class="dv">5</span>, day <span class="op">==</span><span class="st"> </span><span class="dv">13</span>)</code></pre></div>
+<pre><code>## # A tibble: 979 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     5    13       16           2359       17.      350
+##  2  2013     5    13      451            500       -9.      632
+##  3  2013     5    13      508            515       -7.      728
+##  4  2013     5    13      534            540       -6.      845
+##  5  2013     5    13      539            545       -6.      815
+##  6  2013     5    13      551            600       -9.      641
+##  7  2013     5    13      552            600       -8.      903
+##  8  2013     5    13      554            600       -6.      811
+##  9  2013     5    13      554            600       -6.      834
+## 10  2013     5    13      554            600       -6.      824
+## # ... with 969 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+</section><section id="wszystkie-loty-opoznione-o-co-najmniej-dwie-godziny" class="slide level2">
+<h2>Wszystkie loty opóźnione o co najmniej dwie godziny</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights, dep_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">120</span>)</code></pre></div>
+<pre><code>## # A tibble: 9,723 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      848           1835      853.     1001
+##  2  2013     1     1      957            733      144.     1056
+##  3  2013     1     1     1114            900      134.     1447
+##  4  2013     1     1     1540           1338      122.     2020
+##  5  2013     1     1     1815           1325      290.     2120
+##  6  2013     1     1     1842           1422      260.     1958
+##  7  2013     1     1     1856           1645      131.     2212
+##  8  2013     1     1     1934           1725      129.     2126
+##  9  2013     1     1     1938           1703      155.     2109
+## 10  2013     1     1     1942           1705      157.     2124
+## # ... with 9,713 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+</section><section id="wszystkie-loty-opoznione-o-co-najmniej-dwie-godziny-trzynastego-maja-startujace-z-newark-albo-laguardii" class="slide level2">
+<h2>Wszystkie loty opóźnione o co najmniej dwie godziny trzynastego maja, startujące z Newark albo LaGuardii</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights, dep_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">120</span>, month <span class="op">==</span><span class="st"> </span><span class="dv">5</span>, day <span class="op">==</span><span class="st"> </span><span class="dv">13</span>, 
+       distance <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000</span>, origin <span class="op">==</span><span class="st"> &quot;EWR&quot;</span> <span class="op">|</span><span class="st"> </span>origin <span class="op">==</span><span class="st"> &quot;LGA&quot;</span>)</code></pre></div>
+<pre><code>## # A tibble: 7 x 19
+##    year month   day dep_time sched_dep_time dep_delay arr_time
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+## 1  2013     5    13     1154            935      139.     1413
+## 2  2013     5    13     1252            759      293.     1504
+## 3  2013     5    13     1546           1342      124.     1653
+## 4  2013     5    13     1931           1645      166.     2117
+## 5  2013     5    13     2003           1800      123.     2315
+## 6  2013     5    13     2320           1943      217.       26
+## 7  2013     5    13     2335           2125      130.       30
+## # ... with 12 more variables: sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;,
+## #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
+## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,
+## #   time_hour &lt;dttm&gt;</code></pre>
+</section><section id="zapisz-wynik-filter-w-nowym-tibble" class="slide level2">
+<h2>Zapisz wynik <code>filter()</code> w nowym tibble</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">loty_z_jfk &lt;-<span class="st"> </span><span class="kw">filter</span>(flights, origin <span class="op">==</span><span class="st"> &quot;JFK&quot;</span>)
+loty_z_jfk</code></pre></div>
+<pre><code>## # A tibble: 111,279 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      542            540        2.      923
+##  2  2013     1     1      544            545       -1.     1004
+##  3  2013     1     1      557            600       -3.      838
+##  4  2013     1     1      558            600       -2.      849
+##  5  2013     1     1      558            600       -2.      853
+##  6  2013     1     1      558            600       -2.      924
+##  7  2013     1     1      559            559        0.      702
+##  8  2013     1     1      606            610       -4.      837
+##  9  2013     1     1      611            600       11.      945
+## 10  2013     1     1      613            610        3.      925
+## # ... with 111,269 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+</section><section id="sortuj-z-arrange" class="slide level2">
+<h2>Sortuj z <code>arrange()</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">arrange</span>(flights, dep_delay)</code></pre></div>
+<pre><code>## # A tibble: 336,776 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013    12     7     2040           2123      -43.       40
+##  2  2013     2     3     2022           2055      -33.     2240
+##  3  2013    11    10     1408           1440      -32.     1549
+##  4  2013     1    11     1900           1930      -30.     2233
+##  5  2013     1    29     1703           1730      -27.     1947
+##  6  2013     8     9      729            755      -26.     1002
+##  7  2013    10    23     1907           1932      -25.     2143
+##  8  2013     3    30     2030           2055      -25.     2213
+##  9  2013     3     2     1431           1455      -24.     1601
+## 10  2013     5     5      934            958      -24.     1225
+## # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+</section><section id="sortuj-malejaco" class="slide level2">
+<h2>Sortuj malejąco</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">arrange</span>(flights, <span class="kw">desc</span>(arr_delay))</code></pre></div>
+<pre><code>## # A tibble: 336,776 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     9      641            900     1301.     1242
+##  2  2013     6    15     1432           1935     1137.     1607
+##  3  2013     1    10     1121           1635     1126.     1239
+##  4  2013     9    20     1139           1845     1014.     1457
+##  5  2013     7    22      845           1600     1005.     1044
+##  6  2013     4    10     1100           1900      960.     1342
+##  7  2013     3    17     2321            810      911.      135
+##  8  2013     7    22     2257            759      898.      121
+##  9  2013    12     5      756           1700      896.     1058
+## 10  2013     5     3     1133           2055      878.     1250
+## # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+</section><section id="sortuj-po-wielu-zmiennych" class="slide level2">
+<h2>Sortuj po wielu zmiennych</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">arrange</span>(flights, year, month, day)</code></pre></div>
+<pre><code>## # A tibble: 336,776 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515        2.      830
+##  2  2013     1     1      533            529        4.      850
+##  3  2013     1     1      542            540        2.      923
+##  4  2013     1     1      544            545       -1.     1004
+##  5  2013     1     1      554            600       -6.      812
+##  6  2013     1     1      554            558       -4.      740
+##  7  2013     1     1      555            600       -5.      913
+##  8  2013     1     1      557            600       -3.      709
+##  9  2013     1     1      557            600       -3.      838
+## 10  2013     1     1      558            600       -2.      753
+## # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+</section><section id="wybierz-tylko-niektore-zmienne---select" class="slide level2">
+<h2>Wybierz tylko niektóre zmienne - <code>select()</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(flights, carrier, flight)</code></pre></div>
+<pre><code>## # A tibble: 336,776 x 2
+##    carrier flight
+##    &lt;chr&gt;    &lt;int&gt;
+##  1 UA        1545
+##  2 UA        1714
+##  3 AA        1141
+##  4 B6         725
+##  5 DL         461
+##  6 UA        1696
+##  7 B6         507
+##  8 EV        5708
+##  9 B6          79
+## 10 AA         301
+## # ... with 336,766 more rows</code></pre>
+</section><section id="wybierz-przedzia-zmiennych" class="slide level2">
+<h2>Wybierz przedział zmiennych</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(flights, year<span class="op">:</span>day)</code></pre></div>
+<pre><code>## # A tibble: 336,776 x 3
+##     year month   day
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1  2013     1     1
+##  2  2013     1     1
+##  3  2013     1     1
+##  4  2013     1     1
+##  5  2013     1     1
+##  6  2013     1     1
+##  7  2013     1     1
+##  8  2013     1     1
+##  9  2013     1     1
+## 10  2013     1     1
+## # ... with 336,766 more rows</code></pre>
+</section><section id="pomocne-funkcje-wewnatrz-select" class="slide level2">
+<h2>Pomocne funkcje wewnątrz <code>select()</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(flights, <span class="kw">starts_with</span>(<span class="st">&quot;dep_&quot;</span>)) <span class="co"># zaczyna się od</span>
+<span class="kw">select</span>(flights, <span class="kw">ends_with</span>(<span class="st">&quot;delay&quot;</span>)) <span class="co"># konczy sie na</span>
+<span class="kw">select</span>(flights, <span class="kw">contains</span>(<span class="st">&quot;num&quot;</span>)) <span class="co"># zawiera</span>
+<span class="kw">select</span>(flights, carrier, <span class="kw">everything</span>()) <span class="co"># &quot;cała reszta&quot;</span></code></pre></div>
+</section><section id="tworz-nowe-zmienne---mutate" class="slide level2">
+<h2>Twórz nowe zmienne - <code>mutate()</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights_sml &lt;-<span class="st"> </span><span class="kw">select</span>(flights, year<span class="op">:</span>day, 
+  <span class="kw">ends_with</span>(<span class="st">&quot;delay&quot;</span>))
+<span class="kw">mutate</span>(flights_sml, <span class="dt">gain =</span> arr_delay <span class="op">-</span><span class="st"> </span>dep_delay)</code></pre></div>
+<pre><code>## # A tibble: 336,776 x 6
+##     year month   day dep_delay arr_delay  gain
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+##  1  2013     1     1        2.       11.    9.
+##  2  2013     1     1        4.       20.   16.
+##  3  2013     1     1        2.       33.   31.
+##  4  2013     1     1       -1.      -18.  -17.
+##  5  2013     1     1       -6.      -25.  -19.
+##  6  2013     1     1       -4.       12.   16.
+##  7  2013     1     1       -5.       19.   24.
+##  8  2013     1     1       -3.      -14.  -11.
+##  9  2013     1     1       -3.       -8.   -5.
+## 10  2013     1     1       -2.        8.   10.
+## # ... with 336,766 more rows</code></pre>
+</section><section id="mutate-korzysta-z-caej-matematyki-swiata" class="slide level2">
+<h2><code>mutate()</code> korzysta z całej matematyki świata</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(flights_sml, <span class="dt">log_gain =</span> <span class="kw">log</span>(<span class="kw">abs</span>(arr_delay <span class="op">-</span><span class="st"> </span>dep_delay)))</code></pre></div>
+<pre><code>## # A tibble: 336,776 x 6
+##     year month   day dep_delay arr_delay log_gain
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+##  1  2013     1     1        2.       11.     2.20
+##  2  2013     1     1        4.       20.     2.77
+##  3  2013     1     1        2.       33.     3.43
+##  4  2013     1     1       -1.      -18.     2.83
+##  5  2013     1     1       -6.      -25.     2.94
+##  6  2013     1     1       -4.       12.     2.77
+##  7  2013     1     1       -5.       19.     3.18
+##  8  2013     1     1       -3.      -14.     2.40
+##  9  2013     1     1       -3.       -8.     1.61
+## 10  2013     1     1       -2.        8.     2.30
+## # ... with 336,766 more rows</code></pre>
+</section><section id="podsumowania---summarise" class="slide level2">
+<h2>Podsumowania - <code>summarise()</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(flights, <span class="dt">distance_mean =</span> <span class="kw">mean</span>(distance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+          <span class="dt">distance_sd =</span> <span class="kw">sd</span>(distance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # A tibble: 1 x 2
+##   distance_mean distance_sd
+##           &lt;dbl&gt;       &lt;dbl&gt;
+## 1         1040.        733.</code></pre>
+</section><section id="grupowanie---group_by" class="slide level2">
+<h2>Grupowanie - <code>group_by()</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Jakiej linii jest najwięcej?</span>
+flights_carriers &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, carrier)
+<span class="kw">summarise</span>(flights_carriers, <span class="dt">count =</span> <span class="kw">n</span>())</code></pre></div>
+<pre><code>## # A tibble: 16 x 2
+##    carrier count
+##    &lt;chr&gt;   &lt;int&gt;
+##  1 9E      18460
+##  2 AA      32729
+##  3 AS        714
+##  4 B6      54635
+##  5 DL      48110
+##  6 EV      54173
+##  7 F9        685
+##  8 FL       3260
+##  9 HA        342
+## 10 MQ      26397
+## 11 OO         32
+## 12 UA      58665
+## 13 US      20536
+## 14 VX       5162
+## 15 WN      12275
+## 16 YV        601</code></pre>
+</section><section id="grupowanie---group_by-1" class="slide level2">
+<h2>Grupowanie - <code>group_by()</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Które lotnisko najbardziej się spóźnia?</span>
+flights_origins &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, origin)
+<span class="kw">summarise</span>(flights_origins, <span class="dt">dep_delay_mean =</span> <span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   origin dep_delay_mean
+##   &lt;chr&gt;           &lt;dbl&gt;
+## 1 EWR              15.1
+## 2 JFK              12.1
+## 3 LGA              10.3</code></pre>
+</section><section id="zostan-hydraulikiem-pipe--" class="slide level2">
+<h2>Zostań hydraulikiem! Pipe - <code>%&gt;%</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># spóźnienie wg. lotniska, nie licząc honolulu</span>
+by_dest &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, dest)
+summary_by_dest &lt;-<span class="st"> </span><span class="kw">summarise</span>(by_dest, <span class="dt">count =</span> <span class="kw">n</span>(),
+  <span class="dt">dist =</span> <span class="kw">mean</span>(distance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+  <span class="dt">delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+ordered &lt;-<span class="st"> </span><span class="kw">arrange</span>(summary_by_dest, <span class="kw">desc</span>(delay))
+delayed &lt;-<span class="st"> </span><span class="kw">filter</span>(ordered, count <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>, dest <span class="op">!=</span><span class="st"> &quot;HNL&quot;</span>)</code></pre></div>
+</section><section id="zostan-hydraulikiem-pipe---1" class="slide level2">
+<h2>Zostań hydraulikiem! Pipe - <code>%&gt;%</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tak jest prościej</span>
+delayed &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(dest) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">count =</span> <span class="kw">n</span>(),
+  <span class="dt">dist =</span> <span class="kw">mean</span>(distance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+  <span class="dt">delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(delay)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(count <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>, dest <span class="op">!=</span><span class="st"> &quot;HNL&quot;</span>)</code></pre></div>
+</section><section id="jak-dziaa-rura" class="slide level2">
+<h2>Jak działa rura?</h2>
+<ul>
+<li class="fragment">Operator <code>%&gt;%</code> bierze wynik działania funkcji z lewej i wrzuca go jako pierwszy argument funkcji z prawej swojej strony.</li>
+<li class="fragment">Czytać go można jako <em>“then”</em> (“…następnie…”).</li>
+<li class="fragment">Np. <em>weź <code>flights</code>, następnie zgrupuj po <code>dest</code>, następnie podsumuj, następnie posortuj po <code>delay</code>, następnie odfiltruj te rekordy, które…</em></li>
+</ul>
+</section><section id="proste-przykady" class="slide level2">
+<h2>Proste przykłady</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wektor &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">44</span>, <span class="op">-</span><span class="dv">50</span>, <span class="dv">17</span>, <span class="op">-</span><span class="fl">0.55234</span>, pi)
+<span class="kw">round</span>(<span class="kw">mean</span>(<span class="kw">abs</span>(wektor)), <span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 19.28</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wektor <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">abs</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 19.28</code></pre>
+</section><section id="proste-przykady-1" class="slide level2">
+<h2>Proste przykłady</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Średnie spóźnienie lotów do honolulu</span>
+hnl_flights &lt;-<span class="st"> </span><span class="kw">filter</span>(flights, dest <span class="op">==</span><span class="st"> &quot;HNL&quot;</span>)
+<span class="kw">summarise</span>(hnl_flights, <span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # A tibble: 1 x 1
+##   `mean(dep_delay, na.rm = TRUE)`
+##                             &lt;dbl&gt;
+## 1                            9.29</code></pre>
+</section><section id="to-samo-z-rura" class="slide level2">
+<h2>To samo z rurą</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Średnie spóźnienie lotów do honolulu</span>
+flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(dest <span class="op">==</span><span class="st"> &quot;HNL&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> T))</code></pre></div>
+<pre><code>## # A tibble: 1 x 1
+##   `mean(dep_delay, na.rm = T)`
+##                          &lt;dbl&gt;
+## 1                         9.29</code></pre>
+</section><section id="jeszcze-raz-spoznienia-lotow" class="slide level2">
+<h2>Jeszcze raz spóźnienia lotów</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># spóźnienie wg. lotniska, nie licząc honolulu</span>
+by_dest &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, dest)
+summary_by_dest &lt;-<span class="st"> </span><span class="kw">summarise</span>(by_dest, <span class="dt">count =</span> <span class="kw">n</span>(),
+  <span class="dt">dist =</span> <span class="kw">mean</span>(distance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+  <span class="dt">delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+ordered &lt;-<span class="st"> </span><span class="kw">arrange</span>(summary_by_dest, <span class="kw">desc</span>(delay))
+delayed &lt;-<span class="st"> </span><span class="kw">filter</span>(ordered, count <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>, dest <span class="op">!=</span><span class="st"> &quot;HNL&quot;</span>)</code></pre></div>
+</section><section id="wersja-z-rurami" class="slide level2">
+<h2>Wersja z rurami</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">delayed &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(dest) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">count =</span> <span class="kw">n</span>(),
+  <span class="dt">dist =</span> <span class="kw">mean</span>(distance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+  <span class="dt">delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(delay)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(count <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>, dest <span class="op">!=</span><span class="st"> &quot;HNL&quot;</span>)</code></pre></div>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal_libs/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="reveal_libs/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

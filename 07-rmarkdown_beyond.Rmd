@@ -1,0 +1,30 @@
+---
+author: Krzysztof Basiński
+title: "TIPN 7 - R Markdown & Beyond"
+output:
+  revealjs::revealjs_presentation:
+    self_contained: false
+    lib_dir: reveal_libs
+    theme: serif
+    center: true
+    incremental: true
+---
+
+# R Markdown
+
+
+
+# To baldly go...
+
+## Książki Hadleya
+
+<http://r4ds.had.co.nz>
+
+<http://adv-r.had.co.nz>
+
+## ggvis
+<https://ggvis.rstudio.com>
+
+## Shiny
+<https://shiny.rstudio.com/gallery/>
+
