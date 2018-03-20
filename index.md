@@ -45,6 +45,7 @@ Godz. 16.00 - 19.45. Zajęcia co dwa tygodnie.
 - [03 Warunki, pętle, więcej o funkcjach](03-warunki_petle_funkcje.html)
 - [04 Tidyverse, ggplot2](04-import_tidyverse_ggplot2.html)
 - [05 Git jest git](05-git_jest_git.html)
+- [06 Import danych, dplyr](06-dplyr.html)
 
 ## Zadania
 - [Zajęcia drugie](02-zadania.html)
