@@ -1,0 +1,275 @@
+---
+author: Krzysztof Basiński
+title: "TIPN 6 - Grzebanie kombinerkami - dplyr"
+output:
+  revealjs::revealjs_presentation:
+    self_contained: false
+    lib_dir: reveal_libs
+    theme: serif
+    center: true
+    incremental: true
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+library(nycflights13)
+```
+
+
+
+# Import danych
+
+## Możemy do `R` importować wszelkiego rodzaju dane:
+- csv
+- xlsx
+- bazy danych
+- json
+- i wiele innych
+
+## CSV - `comma separated values`
+- Zwykły plik tekstowy
+- Najprostszy format zapisu danych tabelarycznych
+- Kolumny oddzielone przecinkami, srednikami, dwukropkami...
+- Wiersze oddzielone znakiem nowej linii
+- Wszystkie programy do analizy danych otwierają pliki csv
+
+## CSV - przykład
+```
+year;population;violent_crime;mansloughter;rape;robbery;assault;property_crime;burglary;larceny;gta
+1994;260327021.00;1857670.00;23326.00;102216.00;618949.00;1113179.00;12131873.00;2712774.00;7879812.00;1539287.00
+1995;262803276.00;1798792.00;21606.00;97470.00;580509.00;1099207.00;12063935.00;2593784.00;7997710.00;1472441.00
+1996;265228572.00;1688540.00;19645.00;96252.00;535594.00;1037049.00;11805323.00;2506400.00;7904685.00;1394238.00
+1997;267783607.00;1636096.00;18208.00;96153.00;498534.00;1023201.00;11558475.00;2460526.00;7743760.00;1354189.00
+...
+```
+
+## CSV - przykład
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+crime_in_us <- read_delim("datasets/crime_in_us.csv", 
+    ";", escape_double = FALSE, trim_ws = TRUE)
+
+crime_in_us[1:6, 1:6]
+```
+
+
+# dplyr
+
+## Tidyverse
+![Tidyverse](img/tidyverse.png)
+
+## Hadley Wickham
+![Hadley](img/hadley.png)
+
+## Tidyverse
+- Tidyverse to zbiór paczek wymyślonych po to, by praca z `R` była lekka, łatwa i przyjemna:
+    + readr - import danych
+    + ggplot2 - wykresy
+    + **dplyr - grzebanie w danych**
+    + tibble - fajne tabelki
+    + tidyr - *tidy data*
+    + purrr - programowanie funkcjonalne
+
+## R For Data Science
+
+<http://r4ds.had.co.nz/>
+
+
+## dplyr
+Opiera się na *czasownikach* (*verbs*):
+
+- wybierają obserwacje o zadanych wartościach (`filter()`)
+- sortują obserwacje (`arrange()`)
+- wybierają zmienne po nazwach (`select()`)
+- tworzą nowe zmienne jako funkcje starych (`mutate()`)
+- podsumowują wartości zmiennych (`summarise()`)
+
+## dplyr
+Czasowniki domyślnie działają na całym zbiorze danych. Jeśli chcemy podzielić zbiór na grupy, możemy skorzystać z `group_by()`.
+
+## dplyr
+
+Każdy czasownik działa podobnie:
+
+- Jako pierwszy argument przyjmuję *tibble* na której ma coś zrobić
+- Kolejne argumenty mówią co ma zrobić, nazwy zmiennych wpisujemy **bez cudzysłowów**
+- Czasownik zwraca nową *tibble*
+
+## Będziemy grzebać w...
+
+```r
+library(nycflights13)
+flights
+View(flights)
+?flights
+```
+
+## `filter()`
+
+*Pokaż mi wszystkie obserwacje, które...*
+
+`filter(zbiór, warunki)`
+
+## Wszystkie loty trzynastego maja
+```{r}
+filter(flights, month == 5, day == 13)
+```
+
+## Wszystkie loty opóźnione o co najmniej dwie godziny
+```{r}
+filter(flights, dep_delay > 120)
+```
+
+## Wszystkie loty opóźnione o co najmniej dwie godziny trzynastego maja, startujące z Newark albo LaGuardii
+```{r}
+filter(flights, dep_delay > 120, month == 5, day == 13, 
+       distance < 1000, origin == "EWR" | origin == "LGA")
+```
+
+## Zapisz wynik `filter()` w nowym tibble
+```{r}
+loty_z_jfk <- filter(flights, origin == "JFK")
+loty_z_jfk
+```
+
+## Sortuj z `arrange()`
+```{r}
+arrange(flights, dep_delay)
+```
+
+## Sortuj malejąco
+```{r}
+arrange(flights, desc(arr_delay))
+```
+
+## Sortuj po wielu zmiennych
+```{r}
+arrange(flights, year, month, day)
+```
+
+## Wybierz tylko niektóre zmienne - `select()`
+```{r}
+select(flights, carrier, flight)
+```
+
+## Wybierz przedział zmiennych
+```{r}
+select(flights, year:day)
+```
+
+## Pomocne funkcje wewnątrz `select()`
+```r
+select(flights, starts_with("dep_")) # zaczyna się od
+select(flights, ends_with("delay")) # konczy sie na
+select(flights, contains("num")) # zawiera
+select(flights, carrier, everything()) # "cała reszta"
+```
+
+## Twórz nowe zmienne - `mutate()`
+```{r}
+flights_sml <- select(flights, year:day, 
+  ends_with("delay"))
+mutate(flights_sml, gain = arr_delay - dep_delay)
+```
+
+## `mutate()` korzysta z całej matematyki świata
+
+```{r}
+mutate(flights_sml, log_gain = log(abs(arr_delay - dep_delay)))
+```
+
+## Podsumowania - `summarise()`
+```{r}
+summarise(flights, distance_mean = mean(distance, na.rm = TRUE),
+          distance_sd = sd(distance, na.rm = TRUE))
+```
+
+## Grupowanie - `group_by()`
+```{r}
+# Jakiej linii jest najwięcej?
+flights_carriers <- group_by(flights, carrier)
+summarise(flights_carriers, count = n())
+```
+
+## Grupowanie - `group_by()`
+```{r}
+# Które lotnisko najbardziej się spóźnia?
+flights_origins <- group_by(flights, origin)
+summarise(flights_origins, dep_delay_mean = mean(dep_delay, na.rm = TRUE))
+```
+
+## Zostań hydraulikiem! Pipe - `%>%`
+```{r}
+# spóźnienie wg. lotniska, nie licząc honolulu
+by_dest <- group_by(flights, dest)
+summary_by_dest <- summarise(by_dest, count = n(),
+  dist = mean(distance, na.rm = TRUE),
+  delay = mean(arr_delay, na.rm = TRUE))
+ordered <- arrange(summary_by_dest, desc(delay))
+delayed <- filter(ordered, count > 20, dest != "HNL")
+```
+
+## Zostań hydraulikiem! Pipe - `%>%`
+```{r}
+# tak jest prościej
+delayed <- flights %>% 
+  group_by(dest) %>% 
+  summarise(count = n(),
+  dist = mean(distance, na.rm = TRUE),
+  delay = mean(arr_delay, na.rm = TRUE)) %>% 
+  arrange(desc(delay)) %>% 
+  filter(count > 20, dest != "HNL")
+```
+
+## Jak działa rura?
+
+- Operator ` %>% ` bierze wynik działania funkcji z lewej i wrzuca go jako pierwszy argument funkcji z prawej swojej strony. 
+- Czytać go można jako *"then"* ("...następnie...").
+- Np. *weź `flights`, następnie zgrupuj po `dest`, następnie podsumuj, następnie posortuj po `delay`, następnie odfiltruj te rekordy, które...*
+
+## Proste przykłady
+```{r}
+wektor <- c(1, 44, -50, 17, -0.55234, pi)
+round(mean(abs(wektor)), 2)
+wektor %>% abs() %>% mean() %>% round(2)
+```
+
+## Proste przykłady
+```{r}
+# Średnie spóźnienie lotów do honolulu
+hnl_flights <- filter(flights, dest == "HNL")
+summarise(hnl_flights, mean(dep_delay, na.rm = TRUE))
+```
+
+## To samo z rurą
+```{r}
+# Średnie spóźnienie lotów do honolulu
+flights %>%
+  filter(dest == "HNL") %>% 
+  summarise(mean(dep_delay, na.rm = T))
+```
+
+
+## Jeszcze raz spóźnienia lotów
+```{r}
+# spóźnienie wg. lotniska, nie licząc honolulu
+by_dest <- group_by(flights, dest)
+summary_by_dest <- summarise(by_dest, count = n(),
+  dist = mean(distance, na.rm = TRUE),
+  delay = mean(arr_delay, na.rm = TRUE))
+ordered <- arrange(summary_by_dest, desc(delay))
+delayed <- filter(ordered, count > 20, dest != "HNL")
+```
+
+## Wersja z rurami
+```{r}
+delayed <- flights %>% 
+  group_by(dest) %>% 
+  summarise(count = n(),
+  dist = mean(distance, na.rm = TRUE),
+  delay = mean(arr_delay, na.rm = TRUE)) %>% 
+  arrange(desc(delay)) %>% 
+  filter(count > 20, dest != "HNL")
+```
+
+## Teraz ty!

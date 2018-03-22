@@ -1,0 +1,44 @@
+---
+title: "Zadania - zajęcia czwarte"
+author: "Krzysztof Basiński"
+date: "3/15/2018"
+output: html_document
+---
+
+Jak zwykle, wszystkie rozwiązania umieść w swoim repozytorium na githubie (`tipn_zad_nazwisko`). Tym razem proszę, aby rozwiązania wszystkich zadań trafiły do jednego pliku o nazwie `zadania4.R`. Poszczególne zadania proszę oddzielić komentarzami w ten sposób:
+
+```
+# Zad 4-1
+tu jakiś kod...
+```
+
+Po każdym zadaniu zróbcie kilka pustych linijek, dla czytelności.
+
+Każdy wykres proszę **wyeksportować do pliku png!** Powinien mieć szerokośc 500px i wysokość 400px. Pliki powinny mieć nazwy typu `zad4-1.png`, `zad4-2.png` itd. i oczywiście powinny znaleźć się w waszym repo.
+
+Pamiętajcie, aby po skończeniu pracy zrobić commit i pchnąć zmiany na github!
+
+
+## Zadanie 4-1
+Będziemy pracować na zbiorze `mpg` dostępnym razem z paczką `ggplot2`. Korzystając z konsoli oraz mózgu dowiedz się jak najwięcej o danych w zbiorze `mpg` (przyda się funkcja `?` i wikipedia). W pliku tekstowym odpowiedz na następujące pytania:
+
+1. Ile jest zmiennych w zbiorze?
+2. Ile jest obserwacji w zbiorze?
+3. Co oznacza parametr *engine displacement*? Co oznacza *miles per gallon*?
+4. Co oznaczają poszczególne zmienne? Zrób listę zmiennych wraz z krótkim opisem, co one oznaczają.
+
+## Zadanie 4-2
+Narysuj wykres punktowy pokazujący zależność pojemności silnika od spalania w mieście.
+
+## Zadanie 4-3
+Narysuj wykres słupkowy pokazujący ilość samochodów w poszczególnych klasach w zbiorze. Zrób, żeby wykres był ładny i kolorowy. Zadbaj o oznaczenia osi i tytuł.
+
+## Zadanie 4-4
+Narysuj histogram, pokazujący rozkład pojemności silnika samochodów w zbiorze. Dostosuj parametr `bins` tak, by histogram dobrze pokazywał rozkład. Zadbaj o oznaczenia osi i tytuł.
+
+## Zadanie 4-5
+Narysuj wykres *ramka-wąsy* pokazujący zależność pojemności silnika od klasy samochodu.
+Niech wąsy będą "poziomo" (odwrotnie niż zazwyczaj). Zadbaj o oznaczenia osi i tytuł.
+
+## Zadanie 4-6 \*
+Narysuj wykres pokazujący liniowo (`geom_smooth`) zależność pojemności silnika od średniego spalania. Jako wskaźnik średniego spalania użyj uśrednionych wartości spalania w mieście i w trasie. Wykres powinien pokazywać spalanie w litrach na 100km. Zadbaj o odpowiednie oznaczenia osi i tytuł.
