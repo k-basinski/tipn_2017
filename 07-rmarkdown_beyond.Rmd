@@ -14,7 +14,7 @@ output:
 
 
 
-# To baldly go...
+# `R` - to baldly go...
 
 ## Książki Hadleya
 
@@ -28,3 +28,21 @@ output:
 ## Shiny
 <https://shiny.rstudio.com/gallery/>
 
+## Konkurencja - Python
+- Paczki: Numpy
+- [Jupyter Notebooks](http://jupyter.org/)
+
+## Super fajne edytory tekstu
+- Dla Win:
+    + Notepad++
+- Dla macOS:
+    + TextWrangler
+- UNIXowe klasyki:
+    + VI/VIm
+    + Emacs
+- Cross-platform:
+    + Atom (by GitHub)
+    + SublimeText
+    
+## Atom jest super
+![Atom jest super](img/ql_atom.PNG)

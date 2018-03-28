@@ -34,7 +34,7 @@ Jaki były najlepsze filmy animowane lat 90-tych?
 Jakie są najdłuższe dramaty wszechczasów?
 
 ## Zadanie 5-6
-Policz średnią i odchylenie standardowe ocen filmów w zależności od ich ratingu MPAA.
+Dla każdego z kategorii MPAA policz średnią i odchylenie standardowe ocen filmów mających daną kategorię.
 
 ## Zadanie 5-7 \*
 Czy wyższy budżet powoduje, że film jest lepszy? Narysuj ładny punktowy wykres w `ggplot` pokazujący tą zależność. Aby lepiej było widać zagęszczenie, zastosuj opcję `alpha = 3/10`. Narysuj na tym samym wykresie linię pokazującą korelację (`geom_smooth()`). Odfiltruj filmy, które:
