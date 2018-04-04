@@ -3,7 +3,7 @@ To jest strona przedmiotu `Technologie informatyczne w pracy naukowej`. Ostatnia
 
 ## Organizacja zajęć
 
-** UWAGA! Z powodów rodzinnych muszę odwołać wszystkie zajęcia ze studentami w dniach 5-6 kwietnia! Umówimy się na odrabianie tych zajęć na początku przyszłego tygodnia, mailowo lub na wykładzie z wpds**
+**UWAGA! Z powodów rodzinnych muszę odwołać wszystkie zajęcia ze studentami w dniach 5-6 kwietnia! Umówimy się na odrabianie tych zajęć na początku przyszłego tygodnia, mailowo lub na wykładzie z wpds**
 
 
 Bardzo proszę, aby wszyscy przynieśli swoje laptopy na zajęcia!
