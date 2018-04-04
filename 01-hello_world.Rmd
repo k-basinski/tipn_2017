@@ -34,7 +34,7 @@ output:
 ## Reprodukowalna nauka
 - Podstawowym mechanizmem kontrolnym w nauce jest **replikacja** wyników badań
 - Analiza wyników jest także częścią badania
-- Cel: 
+- Cel:
     - każdy naukowiec na świecie może przeprowadzić daną analizę na zbiorze danych surowych
     - powinien otrzymać te same wyniki!
     - bardzo trudne do zrobienia przy pomocy narzędzi typu *point & click*
@@ -81,7 +81,7 @@ output:
 ## Bit
 - Podstawowa jednostka informacji
 - Przyjmuje wartości **0 lub 1**
-- Ciąg ośmiu bitów daje jeden **bajt** - najprostszy sposób zapisania np. pojedyńczego znaku
+- Ciąg ośmiu bitów daje jeden **bajt** - najprostszy sposób zapisania np. pojedynczego znaku
 
 ## ASCII
 - Siedem bitów
@@ -106,7 +106,7 @@ output:
     + **TERA**bajty (1,000,000,000,000 bajtów)
 
 ## Programy
-- Skąd procesor wie, jakiego rodzaju operacje ma wykonać na danych? 
+- Skąd procesor wie, jakiego rodzaju operacje ma wykonać na danych?
 - Mówi mu to ciąg instrukcji zwany **programem**
 - Program komputerowy działa tak samo jak programator w pralce
 - Aby CPU zrozumiał program, musi on być napisany w **kodzie maszynowym**
@@ -124,18 +124,18 @@ output:
     ja @f
     mov eax, 0
     ret
-    
+
     @@:
     cmp edx, 2
     ja @f
     mov eax, 1
     ret
-    
+
     @@:
     push ebx
     mov ebx, 1
     mov ecx, 1
-    
+
     @@:
         lea eax, [ebx+ecx]
         cmp edx, 3
@@ -144,7 +144,7 @@ output:
         mov ecx, eax
         dec edx
     jmp @b
-    
+
     @@:
     pop ebx
     ret
@@ -168,7 +168,7 @@ output:
         }
       }
     }
-    
+
 ## Języki programowania wysokiego/wyższego poziomu
 - Java
 - Ruby

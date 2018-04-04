@@ -2,6 +2,10 @@
 To jest strona przedmiotu `Technologie informatyczne w pracy naukowej`. Ostatnia aktualizacja strony: **6 marca 2018.**
 
 ## Organizacja zajęć
+
+** UWAGA! Z powodów rodzinnych muszę odwołać wszystkie zajęcia ze studentami w dniach 5-6 kwietnia! Umówimy się na odrabianie tych zajęć na początku przyszłego tygodnia, mailowo lub na wykładzie z wpds**
+
+
 Bardzo proszę, aby wszyscy przynieśli swoje laptopy na zajęcia!
 
 
