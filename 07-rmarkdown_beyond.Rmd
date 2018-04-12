@@ -31,8 +31,10 @@ output:
 ## Konkurencja - Python
 - Paczki: Numpy
 - [Jupyter Notebooks](http://jupyter.org/)
+- Psychopy
 
 ## Super fajne edytory tekstu
+
 - Dla Win:
     + Notepad++
 - Dla macOS:
@@ -46,3 +48,4 @@ output:
     
 ## Atom jest super
 ![Atom jest super](img/ql_atom.PNG)
+
