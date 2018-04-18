@@ -1,0 +1,227 @@
+---
+title: "Chalder Fatigue Questionnaire - CFA"
+output:
+  html_document:
+    df_print: paged
+    toc: true
+    toc_depth: 2
+    theme: united
+    highlight: tango
+---
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+library(readxl)
+library(readr)
+library(lavaan)
+library(semPlot)
+library(reshape2)
+library(Hmisc)
+
+# read data
+d <- read_excel("ciaze-11-10-2017.xlsx")
+
+# przelicz czynniki
+colnames(d) <- d %>% colnames() %>% tolower() # male litery w nazwach zmiennych
+chalder <- select(d, starts_with("chfq")) %>% 
+  mutate(
+    chfq_total = chfq1 + chfq2 + chfq3 + chfq4 + chfq5 + 
+      chfq6 + chfq7 + chfq8 + chfq9 + chfq10 + chfq11,
+    chfq_mental = chfq8 + chfq9 + chfq10 + chfq11,
+    chfq_physical =  chfq1 + chfq2 + chfq3 + chfq4 +
+      chfq5 + chfq6 + chfq7
+  )
+
+chalder_items <- chalder %>% select(1:11)
+chalder_items_physical <- chalder %>% select(1:7)
+chalder_items_mental <- chalder %>% select(8:11)
+chalder_factors <- chalder %>% select(12:14)
+```
+
+# Pytania kwestionariusza
+
+| pytanie | zmienna| czynnik |
+| ---|---|---|
+| Czy masz problemy ze zmęczeniem? | chfq1 | phys |
+| Czy potrzebujesz więcej odpoczynku? | chfq2 | phys |
+| Czy czujesz się niewyspany albo senny? | chfq3 | phys |
+| Czy masz problemy z rozpoczynaniem czynności? | chfq4 | phys |
+| Czy brakuje Ci energii? | chfq5 | phys |
+| Czy masz mniej siły w mięśniach? | chfq6 | phys |
+| Czy czujesz się osłabiona / osłabiony? | chfq7 | phys |
+| Czy trudno Ci się skoncentrować? | chfq8 | mental |
+| Czy zdarzają Ci się przejęzyczenia? | chfq9 | mental |
+| Czy jest Ci trudniej znajdować właściwe słowa? | chfq10 | mental |
+| Jak się sprawuje Twoja pamięć? | chfq11 | mental |
+
+# Rozkłady
+
+## Poszczególne pytania
+```{r}
+# rozkłady pytań
+chalder_items %>%  
+  melt() %>% 
+  ggplot() + facet_wrap(~variable, scales = 'free_x') +
+  geom_histogram(aes(value), binwidth = 1)
+```
+
+`chfq2` wydaje się być bardzo skośny (ale kto nie potrzebuje więcej odpoczynku w ciąży?)
+
+## Czynniki
+```{r}
+# rozkłady czynników
+chalder_factors %>% 
+  melt() %>% 
+  ggplot() + facet_wrap(~variable, scales = 'free_x') +
+    geom_histogram(aes(value), binwidth = 1)
+```
+
+Ciekawa jest grupa osób mających maksa w skali (ponad 25). Rozkład `chfq_physical` może wskazywać na efekt sufitu - jest relatywnie dużo osób z maksem (?).
+
+# Alfa Cronbacha
+
+Ogólnie wskaźniki alfy Cronbacha bardzo wysokie dla całości i obu podskal, nie ma się czym przejmować.
+
+## Dla całej skali
+```{r}
+psych::alpha(chalder_items)
+```
+
+## Dla czynnika `physical`
+```{r}
+psych::alpha(chalder_items_physical)
+```
+
+## Dla czynnika `mental`
+```{r}
+psych::alpha(chalder_items_mental)
+```
+
+# Macierz korelacji
+
+Policzyłem dla porządku. Tu tak na prawdę istotna jest korelacja dwóch wyodrębnionych czynników. Jest dość wysoka (.53), ale chyba mogło być gorzej. `0` w tabeli z P oznacza, że to po prostu bardzo bardzo małe P (czyli istotne).
+
+
+## Macierz dla pytań
+
+```{r}
+cor_mat <- chalder_items %>% 
+  as.matrix() %>% 
+  rcorr()
+cor_mat$r %>% as_tibble()
+cor_mat$P %>% as_tibble()
+```
+
+## Macierz dla wskaźników
+
+```{r}
+# macierz korelacji
+cor_mat <- chalder_factors %>% 
+  as.matrix() %>% 
+  rcorr()
+cor_mat$r %>% as_tibble()
+cor_mat$P %>% as_tibble()
+```
+
+
+
+# CFA
+
+To są wyniki mojej próby dokonania konfirmacyjnej analizy czynnikowej. Idąc za chińską adaptacją (która wygląda pro), stwierdziłem, że zrobię cztery modele: 
+
+1. model zakładający istnienie jednego czynnika (po prostu zmęczenie), 
+2. model zakładający istnienie dwóch czynników niezależnych od siebie (zmęczenie fizyczne i psychiczne) 
+3. model zakładający istnienie dwóch czynników (zmęczenie fizyczne i psychiczne), pomiędzy którymi jest kowariancja
+4. model zakładający istnienie trzech czynników - zmęczenia fizycznego i psychicznego będących łącznie składnikami jednego dużego czynnika - zmęczenie.
+
+Dalej, sensowne wydaje się porównanie statystyk tych modeli, żeby stwierdzić który najlepiej pasuje do danych (`fit indices`). To porównanie jest na samym dole.
+
+Problemy:
+
+- Nie jestem pewien czy model 2 i 3 czymkolwiek się od siebie w praktyce różnią
+
+
+## Model 1 (z jednym czynnikiem)
+```{r}
+model <- "
+  chfq =~ chfq1 + chfq2 + chfq3 + chfq4 + chfq5 + chfq6 + chfq7 + chfq8 + chfq9 + chfq10 + chfq11
+"
+
+cfa_1factor <- cfa(model, chalder)
+
+summary(cfa_1factor, fit.measures = TRUE, standardized = TRUE)
+residuals(cfa_1factor)
+fitmeasures(cfa_1factor)
+
+semPaths(cfa_1factor, whatLabels = "std", layout = "tree")
+```
+
+
+## Model 2 (z dwoma czynnikami niezależnymi)
+```{r}
+model <- "
+  chfq_mental =~ chfq8 + chfq9 + chfq10 + chfq11
+  chfq_physical =~  chfq1 + chfq2 + chfq3 + chfq4 + chfq5 + chfq6 + chfq7
+"
+
+cfa_2factor <- cfa(model, chalder)
+
+summary(cfa_2factor, fit.measures = TRUE, standardized = T, rsquare = T)
+residuals(cfa_2factor)
+fitmeasures(cfa_2factor)
+
+semPaths(cfa_2factor, whatLabels = "std", layout = "tree")
+```
+
+## Model 3 (z dwoma czynnikami i kowariancją)
+```{r}
+model <- "
+  chfq_mental =~ chfq8 + chfq9 + chfq10 + chfq11
+  chfq_physical =~  chfq1 + chfq2 + chfq3 + chfq4 + chfq5 + chfq6 + chfq7
+  chfq_mental ~~ chfq_physical
+"
+
+cfa_2factor_covar <- cfa(model, chalder)
+
+summary(cfa_2factor_covar, fit.measures = TRUE, standardized = T, rsquare = T)
+residuals(cfa_2factor_covar)
+fitmeasures(cfa_2factor_covar)
+
+semPaths(cfa_2factor_covar, whatLabels = "std", layout = "tree")
+```
+
+## Model 4 (hierarchiczny z trzema czynnikami)
+```{r}
+model <- "
+  chfq_mental =~ chfq8 + chfq9 + chfq10 + chfq11
+  chfq_physical =~  chfq1 + chfq2 + chfq3 + chfq4 + chfq5 + chfq6 + chfq7
+  chfq =~ NA*chfq_mental + chfq_physical
+  chfq ~~ 1*chfq
+"
+
+cfa_3factor <- cfa(model, chalder)
+
+summary(cfa_3factor, fit.measures = TRUE)
+residuals(cfa_3factor)
+fitmeasures(cfa_3factor)
+
+semPaths(cfa_3factor, whatLabels = "std", layout = "tree")
+```
+
+
+
+
+
+
+
+
+# To samo dla studentów
+
+```{r}
+studenci <- read_delim("studenci.csv", ";", 
+    escape_double = FALSE, trim_ws = TRUE)
+
+# pamiętaj, żeby licząc czynniki policzyć średnią a nie dodawać!
+```
+
