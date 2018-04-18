@@ -1,5 +1,9 @@
 ---
 title: "tipn - zadania - zajęcia piąte"
+output: 
+  html_document:
+    theme: flatly
+    highlight: tango
 ---
 
 ## Instrukcje ogólne

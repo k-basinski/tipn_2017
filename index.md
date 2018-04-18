@@ -54,9 +54,11 @@ Godz. 16.00 - 19.45. Zajęcia co dwa tygodnie.
 - [04 Tidyverse, ggplot2](04-import_tidyverse_ggplot2.html)
 - [05 Git jest git](05-git_jest_git.html)
 - [06 Import danych, dplyr](06-dplyr.html)
+- 07 R Markdown - [prezentacja](07-rmarkdown_beyond.html) , [dokument](markdown_exmpls/rmarkdown_example.html)
 
 ## Zadania
 - [Zajęcia drugie](02-zadania.html)
 - [Zajęcia trzecie](03-zadania.html)
 - [Zajęcia czwarte](04-zadania.html)
 - [Zajęcia piąte](05-zadania.html)
+- [Zajęcia szóste](06-zadania.html)

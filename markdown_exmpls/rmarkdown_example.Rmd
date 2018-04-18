@@ -86,4 +86,4 @@ Więcej znajdziesz tu: <https://rmarkdown.rstudio.com/lesson-9.html> . Sky is th
 
 ## Rozszerzenia R Markdown
 
-Oprócz podstawowej funkcjonalności, R Markdown posiada też rozszerzenia. Przykładowe rozszerzenie pozwala formatować bibliografię, tak jak w tym dokumencie: <przyklad_bibliografii.html>
+Oprócz podstawowej funkcjonalności, R Markdown posiada też rozszerzenia. Przykładowe rozszerzenie pozwala formatować bibliografię, tak jak w tym dokumencie: <przyklad_bibliografii.html>. Żeby to działało, potrzebujesz stworzyć plik `.bib`, zawierający twoją bibliografię w formacie BibTeX (uda ci się to np. za pomocą Mendeley) oraz dołączyć plik `.csl` zawierający opis formatu cytowań. Pliki csl możesz znaleźć tu: <https://www.zotero.org/styles> albo tu: <https://github.com/citation-style-language/styles>
