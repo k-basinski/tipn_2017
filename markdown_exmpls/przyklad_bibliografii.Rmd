@@ -1,0 +1,42 @@
+---
+title: "Ból - kontekst bio-psycho-społeczny"
+author: "Krzysztof Basiński"
+date: "February 14, 2018"
+output:
+  html_document:
+    theme: spacelab
+  pdf_document:
+    latex_engine: xelatex
+bibliography: library.bib
+csl: apa.csl
+link-citations: true
+---
+
+# Ból - kontekst bio-psycho-społeczny
+
+## Podstawowe pojęcia z dziedziny badania bólu
+
+### Definicja bólu
+Wg.opracowanej przez International Association for the Study of Pain (IASP, Międzynarodowe Towarzystwo Badania Bólu) taksonomii, ból to nieprzyjemne doznanie sensoryczne i emocjonalne, powiązane z faktycznym lub potencjalnym uszkodzeniem tkanek, lub opisywane w kategoriach takiego uszkodzenia [@IASPTaskForceOnTaxonomy1994, z późniejszymi zmianami]. Jako, że ból to doznanie sensoryczne i emocjonalne, jest on zawsze subiektywny. Ludzie od dzieciństwa uczą się używać tego terminu do określania konkretnych wrażeń powiązanych z urazami. Ból posiada dwa komponenty - komponent sensoryczny (świadomość odczuwania bólu, umiejętność jego lokalizacji w konkretnym miejscu w ciele), oraz emocjonalny (nieprzyjemny stan emocjonalny powiązany z odczuwaniem bólu). Wielu pacjentów mówi, że odczuwa ból pomimo braku uszkodzeń tkanek czy stanów patologicznych. Może być to spowodowane zmianami na poziomie centralnego układu nerwowego (CUN) [@Davis2013]. Jako że nie istnieją sposoby obiektywnej weryfikacji subiektywnego stanu bólu, tego typu objawy powinny być traktowane w ten sam sposób co ból spowodowany oczywistym uszkodzeniem tkanek [@Flor2011; @IASPTaskForceOnTaxonomy1994].
+
+Kodowanie bodźców bólowych na poziomie układu nerwowego zwane jest nocycepcją [@IASPTaskForceOnTaxonomy1994]. Aktywność receptorów bólowych czy włókien przenoszących informacje bólowe nie jest bólem - ból jest zawsze stanem psychologicznym, na który składa się aktywność obwodowego, jak i ośrodkowego układu nerwowego. Często nocycepcja prowadzi do doświadczenia bólu, jednak nie jest ona warunkiem koniecznym ani wystarczającym. Ta specyfika jest często podkreślana w badaniach nad bólem przewlekłym [@Flor2011; @Jensen2014].
+
+Ból pełni bardzo istotną funkcję adaptacyjną. W odpowiedzi na odczucie bólu, następuje w organizmie szereg reakcji służących ochronie przed urazem oraz ostrzeżeniu innych osób w pobliżu. Do tych reakcji należą: odruch cofnięcia zagrożonej kończyny, lokalne zwiększenie przepływu krwi, ekspresja mimiczna sygnalizująca ból oraz skupienie uwagi na potencjalnym zagrożeniu [@Damasio2013]. Reakcja bólowa traktowana jest jako odpowiedź organizmu na możliwe bądź faktyczne zaburzenie homeostazy i uruchamia program działania zmierzający do zachowania równowagi (*ibidem*). Badania nad pacjentami z wrodzoną niewrażliwością na ból (żadką chorobą genetyczną objawiającą się całkowitym brakiem odczuwania dolegliwości bólowych) pokazują, jak istotną funkcję przystosowawczą pełni ból. Choroba powoduje nieświadome samookaleczanie się, zwłaszcza w rejonie twarzy, oczu, języka, palców. Pacjenci z wrodzoną niewrażliwością na ból mają istotnie krótszą spodziewaną długość życia, w wyniku doświadczanych urazów, oparzeń i innych [@Bennett2014; @Chen2015].
+
+### Ból nocyceptywny, neuropatyczny i nocyplastyczny
+
+Ból nocyceptywny powstaje na skutek faktycznego lub możliwego uszkodzenia tkanki (nie nerwowej) i wiąże się z aktywacją receptorów bólowych (nocyreceptorów). Ból nocyceptywny jest wynikiem normalnej (nie zaburzonej) pracy somatosensorycznego układu nerwowego [@IASPTaskForceOnTaxonomy1994]. Nocyreceptory wyczulone są na bodźce mechaniczne, termiczne lub chemiczne. Na skutek aktywacji tych receptorów powstaje sygnał elektryczny, który poprzez włókna nerwowe i rdzeń kręgowy trafia do CUN. Ból nocyceptywny pojawia się w związku z urazami, oparzeniami, odmrożeniami czy stanami zapalnymi
+
+Ból neuropatyczny powstaje na skutek uszkodzenia bądź choroby somatosensorycznego układu nerwowego [@IASPTaskForceOnTaxonomy1994; @Jensen2011]. Somatosensoryczny układ nerwowy to część układu nerwowego odpowiedzialna za przetwarzanie informacji dotyczących zmian na powierzchni i wewnątrz ciała. Oprócz bólu, układ somatosensoryczny odpowiada także za zmysł dotyku, wrażenia związane z odczuwaniem temperatury i propriocepcję. Ból neuropatyczny może być związany ze stanem zapalnym nerwu (np. neuralgia nerwu trójdzielnego), uszkodzeniem rdzenia kręgowego, udarem mózgu, zakażeniem wirusowym (np. HIV, półpasiec), stwardnieniem rozsianym, neuropatią cukrzycową, chorobą nowotworową, czy amputacją kończyn (bóle fantomowe) [@VanHecke2014].
+
+Ból nocyplastyczny to ból powstający na skutek zaburzonej nocycepcji pomimo braku oznak potencjalnego lub faktycznego uszkodzenia tkanek oraz pomimo braku oznak uszkodzenia bądź choroby somatosensorycznego układu nerwowego [@IASPTaskForceOnTaxonomy1994]. Definicja ta *de facto* obejmuje dolegliwości bólowe, które występują pomimo nie stwierdzenia nocycepcji bądź neuropatii. Kategoria bólu nocyplastycznego została opracowana relatywnie niedawno, w odpowiedzi na przeformułowanie definicji bólu neuropatycznego [@Jensen2011], która wyłączyła z kategorii neuropatii dużą ilość dolegliwości "niespecyficznych", nie posiadających jasnej patofizjologii [@Kosek2016]. Tego typu dolegliwości, mieszczące się obecnie w kategorii bólu nocyplastycznego, to np. fibromialgia, kompleksowy zespół bólu regionalnego, ból w zespole jelita drażliwego oraz, będący tematem tej pracy, niespecyficzny ból dolnego odcinka kręgosłupa.
+
+### Ból ostry i ból przewlekły
+
+Z uwagi na czas trwania dolegliwości ból można podzielić na ostry i przewlekły. Według różnych źródeł, ból przewlekły to ból trwający dłużej niż 1, 3 lub 6 miesięcy [@Merskey2013]. Istnieje też kategoria bólu "podostrego" (*sub-acute pain*), opisywana jako ból trwający dłużej niż 30 dni (już nie ostry) i krócej niż 6 miesięcy (jeszcze nie przewlekły) [@Boswell2006]. Inna, często używana definicja mówi, że ból przewlekły to ból trwający dłużej niż spodziewany okres wyleczenia [@Flor2011].
+
+Różnica pomiędzy bólem ostrym a przewlekłym często nie dotyczy jedynie czasu trwania dolegliwości. Dolegliwości bólowe mogą trwać nawet pomimo ustania pierwotnej patologii, a towarzyszyć im mogą zmiany strukturalne i funkcjonalne na poziomie CUN oraz zmiany w funkcjonowaniu psychologicznym [@Apkarian2014113; @Flor2011]. W nowoczesnym, bio-psycho-społecznym ujęciu, ból przewlekły traktowany jest jako choroba "sama w sobie", której leczenie wymaga interdyscyplinarnego podejścia [@Jensen2014; @Flor2011; @Turk2014139].
+
+
+
+# Bibliografia

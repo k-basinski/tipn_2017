@@ -2,7 +2,8 @@
 To jest strona przedmiotu `Technologie informatyczne w pracy naukowej`. Ostatnia aktualizacja strony: **6 marca 2018.**
 
 ## Organizacja zajęć
-Bardzo proszę, aby wszyscy przynieśli swoje laptopy na zajęcia!
+
+Bardzo proszę, aby wszyscy **przynieśli swoje laptopy** na zajęcia!
 
 
 Pamiętajcie, każdy powinien mieć zainstalowane i działające co najmniej te trzy programy:
@@ -20,15 +21,22 @@ Zajęcia odbywają się w czwartki, w Centrum Medycyny Inwazyjnej, w sali 0/U/07
 
 Godz. 12.00 - 15.45 albo 11.00 - 14.45 (patrzcie na plan!). Zajęcia w blokach po sześć spotkań. Grupa 1 zaczyna 22.02. Grupa 2 zaczyna **12.04**.
 
+Odrabianie zaległych zajęć:
+
+- gr1: 19.04.2018 8:00-11:45 - AGN104
+
+- gr2: wt. 24.04.2018 11:15-15:00 - AGN120
+
 ### 2 rok:
+
 Godz. 16.00 - 19.45. Zajęcia co dwa tygodnie. 
 
 - gr. A:
     + 22.02
     + 8.03
     + 22.03
-    + 5.04
     + 19.04
+    + **24.04, godz. 15.15-19.00, AGN 220**
     + 10.05
 
 - gr. B:
@@ -46,9 +54,11 @@ Godz. 16.00 - 19.45. Zajęcia co dwa tygodnie.
 - [04 Tidyverse, ggplot2](04-import_tidyverse_ggplot2.html)
 - [05 Git jest git](05-git_jest_git.html)
 - [06 Import danych, dplyr](06-dplyr.html)
+- 07 R Markdown - [prezentacja](07-rmarkdown_beyond.html) , [dokument](markdown_exmpls/rmarkdown_example.html)
 
 ## Zadania
 - [Zajęcia drugie](02-zadania.html)
 - [Zajęcia trzecie](03-zadania.html)
 - [Zajęcia czwarte](04-zadania.html)
 - [Zajęcia piąte](05-zadania.html)
+- [Zajęcia szóste](06-zadania.html)

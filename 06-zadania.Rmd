@@ -1,0 +1,33 @@
+---
+title: "tipn - zadania - zajęcia szóste"
+output: 
+  html_document:
+    theme: flatly
+    highlight: tango
+---
+
+## Instrukcje ogólne
+
+Jak zwykle, wszystkie rozwiązania umieść w swoim repozytorium na githubie (`tipn_zad_nazwisko`). Tym razem proszę, aby rozwiązanie zadania trafiło do pliku o nazwie `zadanie6.Rmd` a jego knit do pliku `zadanie06.html`.
+
+### Zadanie 6
+
+Przygotuj dokument w R Markdown, który wykorzysta wszystkie funkcjonalności, o których powiedzieliśmy na zajęciach. Dokument może dotyczyć czegokolwiek, ale niech będzie spójny i sensowny (zaskoczcie mnie! liczę na waszą kreatywność). Dokument musi zawierać następujące elementy:
+
+- Nagłówek `yaml` z definicją `theme` i `highlight` (kolorowanie składni kodu)
+- Nagłówki co najmniej dwóch poziomów
+- Listę wypunktowaną
+- Listę numerowaną 
+- Link
+- Obrazek 
+- Tabelę napisaną w markdown
+- Cytowanie kodu w dowolnym języku programowania
+- Kilka chunków w języku R, zawierających co najmniej:
+    + Wykres w `ggplot2`
+    + Wydruk tabeli (może być jeden z przykładowych zbiorów danych z `tidyverse`, np. zbiór `diamonds`). W nagłówku skorzystaj z opcji `df_print: paged` żeby ładnie się wyświetliła)
+    + Jeden chunk, w którym wykonuje się kod, którego "nie widać" (korzystaj z opcji *Show nothing, run code* w R Studio)
+    
+### Dobre rady
+- W nagłówku `yaml` pamiętaj o wcięciach i dwukropkach! Przykładowe nagłówki znajdziesz na <https://rmarkdown.rstudio.com>
+- Pamiętaj, aby dołączyć do repo plik `png` albo `jpg`, z którego korzysta R Markdown!
+- Przed skorzystaniem z `ggplot2` i `tidyverse` pamiętaj o dołączeniu paczki za pomocą funkcji `library()`
