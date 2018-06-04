@@ -1,5 +1,16 @@
 # Technologie informatyczne w pracy naukowej
-To jest strona przedmiotu `Technologie informatyczne w pracy naukowej`. Ostatnia aktualizacja strony: **6 marca 2018.**
+To jest strona przedmiotu `Technologie informatyczne w pracy naukowej`. Ostatnia aktualizacja strony: **30 maj 2018.**
+
+
+## UWAGA! Ostateczne terminy oddawania zajęć!
+
+Z racji tego, że sporo z was ma dalej zaległości w swoich repozytoriach, umawiamy się w ten sposób - **ostateczny, nieprzekraczalny termin** oddawania zadań to niedziela, 10.06. Wtedy **każdy z was ma mieć wszystkie zadania, i to zrobione poprawnie**. Jeśli u kogoś będzie brakować czegoś, nie dostanie zaliczenia.
+
+Jedynym wyjątkiem od tego terminu jest grupa B z 2 roku, która nie miała ostatnich zajęć. Wy musicie mieć do 10.06 zrobione wszystkie zadania z wyjątkiem zadania 6. Na zrobienie zadania 6 macie czas do 17.06.
+
+Powyższe terminy są **nieprzekraczalne**. Nie będę przyjmował tłumaczeń, że komp wam się popsuł. Mieliście cały semestr na pracę.
+
+Jeśli ktoś chciałbym, żebym rzucił okiem na jego rozwiązania **przed** upływem terminu, niech wyśle maila. Przypominam też, że nie wszyscy jeszcze kliknęli guzik `follow` na moim profilu na githubie. Jeśli tego nie zrobicie, ja nie poznam adresów waszych repo i nie będę mógł sprawdzić zadań, ergo - nie zaliczę wam przedmiotu.
 
 ## Organizacja zajęć
 
